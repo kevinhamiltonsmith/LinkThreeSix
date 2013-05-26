@@ -8,13 +8,10 @@ var BoardView = Backbone.View.extend({
     'click td': function(event){
       var squareValue = parseInt($(event.currentTarget).html());
       var position = $(event.currentTarget).data("position");
-      this.changeSquare(squareValue, position);
+      //TODO: use dupal array at each square w/ show/hide css class
+      // $(event.currentTarget).addClass('showSquare');
+      this.model.setSquare(squareValue, position);
     }
-  },
-
-  changeSquare: function(mark, position){
-    //TODO: set correct mark value
-    this.model.setSquare(mark+1, position);
   },
 
   initialize: function(){
@@ -35,6 +32,7 @@ var BoardView = Backbone.View.extend({
               "<tr class='row-c'>" +
                 "<td data-position='6' class='c0 col0'>" + board[6] + "</td><td data-position='7' class='c1 col1'>" + board[7] + "</td><td data-position='8' class='c2 col2'>" + board[8] + "</td>" +
               "</tr>";
-    return this.$el.html(html);
+    this.$el.html(html);
+    return this;
   }
 });

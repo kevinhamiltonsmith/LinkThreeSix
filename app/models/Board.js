@@ -6,9 +6,12 @@ var Board = Backbone.Model.extend({
 
   setSquare: function(mark, position){
     //clone array here to preserve Backbone change listener in BoardView
-    var newSquares = this.get('board').slice(0);
-    newSquares[position] = mark;
-    this.set('board', newSquares);
+    if (mark === 0) {
+      mark = "X";
+      var newSquares = this.get('board').slice(0);
+      newSquares[position] = mark;
+      this.set('board', newSquares);
+    }
   }
 
 });
