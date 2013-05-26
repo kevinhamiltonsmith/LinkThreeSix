@@ -9,7 +9,6 @@ var Board = Backbone.Model.extend({
     var newSquares = this.get('board').slice(0);
     newSquares[position] = mark;
     this.set('board', newSquares);
-    console.log(this.get('board'));
   }
 
 });
