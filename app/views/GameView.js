@@ -3,7 +3,7 @@ var GameView = Backbone.View.extend({
   className: 'game-view',
 
   initialize: function(){
-    this.boardView = new BoardView({model: board});
+    this.boardView = new BoardView({model: this.model.get('board')});
   },
 
   render: function(){
