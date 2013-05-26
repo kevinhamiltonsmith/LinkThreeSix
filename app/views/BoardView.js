@@ -21,6 +21,7 @@ var BoardView = Backbone.View.extend({
     this.model.on('change:board', function(){
       this.render();
     }, this);
+    this.render();
   },
 
   render: function(){

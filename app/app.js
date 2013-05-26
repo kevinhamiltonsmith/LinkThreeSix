@@ -1,3 +1,3 @@
 var board = new Board();
-var gameView = new BoardView({model: board});
+var gameView = new GameView();
 $('body').append(gameView.render());
