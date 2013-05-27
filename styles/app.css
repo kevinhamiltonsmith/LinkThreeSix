@@ -64,14 +64,14 @@ table {
   height: 75px;
   text-align: center;
 }
-.row-a td {
+.row-0 td {
   border-bottom: 2px solid #000;
 }
-.row-b td {
+.row-1 td {
   border-bottom: 2px solid #000;
   border-top: 2px solid #000;
 }
-.row-c td {
+.row-2 td {
   border-top: 2px solid #000;
 }
 .col0 {
