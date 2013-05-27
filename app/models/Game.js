@@ -1,11 +1,12 @@
 var Game = Backbone.Model.extend({
 
   initialize: function(){
-    this.set({playerScore: 0, computerScore: 0, tieScore: 0});
+    this.set({playerScore: 0, computerScore: 0, tieScore: 0, newGame: false});
     this.set('board', new Board());
 
     this.get('board').on('change', function(){
       this.winCheck();
+      console.log(this);
     }, this);
   },
 
@@ -52,8 +53,14 @@ var Game = Backbone.Model.extend({
   scoreSet: function(id){
     if (id === 1) {
       this.set({playerScore: this.get('playerScore')+1});
+      this.newBoard();
     } else if (id === 2) {
       this.set({computerScore: this.get('computerScore')+1});
+      this.newBoard();
     }
+  },
+
+  newBoard: function(){
+    this.set({newGame: true});
   }
 });

@@ -5,8 +5,19 @@ var GameView = Backbone.View.extend({
   initialize: function(){
     this.boardView = new BoardView({model: this.model.get('board')});
 
-    this.model.on('change', function(){
+    this.model.on('change:playerScore change:computerScore change:tieScore', function(){
       this.render();
+    }, this);
+
+    this.model.on('change:newGame', function(){
+      this.model.set('newGame', false);
+      if(this.boardView) {
+        this.boardView.remove();
+      }
+      this.model.set('board', new Board());
+      this.boardView = new BoardView({model: this.model.get('board')});
+      this.render();
+      // debugger;
     }, this);
   },
 

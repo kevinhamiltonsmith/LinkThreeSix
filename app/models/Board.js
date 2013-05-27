@@ -6,6 +6,11 @@ var Board = Backbone.Model.extend({
       initialBoard.push([0,"hidden",0]);
     }
     this.set({board: initialBoard, turn: "player"});
+
+    // this.get('board').on('change', function(){
+    //   this.winCheck();
+    //   console.log(this);
+    // }, this);
   },
 
   setSquare: function(mark, position){
