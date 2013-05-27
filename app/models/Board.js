@@ -1,7 +1,11 @@
 var Board = Backbone.Model.extend({
 
   initialize: function(){
-    this.set({board: [[0,"hidden",0],[0,"hidden",0],[0,"hidden",0],[0,"hidden",0],[0,"hidden",0],[0,"hidden",0],[0,"hidden",0],[0,"hidden",0],[0,"hidden",0]], turn: "player"});
+    var initialBoard = [];
+    for (var i = 0; i < 9; i++) {
+      initialBoard.push([0,"hidden",0]);
+    }
+    this.set({board: initialBoard, turn: "player"});
   },
 
   setSquare: function(mark, position){

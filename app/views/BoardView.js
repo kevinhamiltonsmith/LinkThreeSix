@@ -21,6 +21,7 @@ var BoardView = Backbone.View.extend({
 
   render: function(){
     var board = this.model.get('board');
+    //TODO: refactor this html -> for (var i = 0; i < 9; i++) {}
     var html ="<tr class='row-a'>" +
                 "<td data-position='0' class='a0 col0 "+board[0][1]+"'>" + board[0][0] + "</td>" +
                 "<td data-position='1' class='a1 col1 "+board[1][1]+"'>" + board[1][0] + "</td>" +
