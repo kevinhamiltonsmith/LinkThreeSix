@@ -64,24 +64,16 @@ table {
   height: 75px;
   text-align: center;
 }
-.row-0 td {
+.row-0 td, .row-1 td {
   border-bottom: 2px solid #000;
 }
-.row-1 td {
-  border-bottom: 2px solid #000;
+.row-2 td, .row-1 td {
   border-top: 2px solid #000;
 }
-.row-2 td {
-  border-top: 2px solid #000;
-}
-.col0 {
+.col0, .col1 {
   border-right: 2px solid #000;
 }
-.col1 {
-  border-right: 2px solid #000;
-  border-left: 2px solid #000;
-}
-.col2 {
+.col2, .col1 {
   border-left: 2px solid #000;
 }
 .board-view .hidden{
