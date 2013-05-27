@@ -5,7 +5,17 @@ var Game = Backbone.Model.extend({
     this.set('board', new Board());
   },
 
-  scoreCheck: function(){
+  winCheck: function(){
+    var gameBoard = this.get('board').get('board');
+    var scores = [];
+    for (var i = 0; i < gameBoard.length; i++) {
+      scores.push(gameBoard[i][2]);
+    }
+    console.log(scores);
+    //check rows
 
+    //check columns
+
+    //check diagonals
   }
 });
