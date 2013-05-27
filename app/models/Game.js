@@ -17,10 +17,8 @@ var Game = Backbone.Model.extend({
     for (var i = 0; i < 9 ; i += 3) {
       var rowScore = scores[i] + scores[i+1] + scores[i+2];
       if (rowScore === 15) {
-        alert('Player 2 Wins!');
         this.scoreSet(2);
       } else if (rowScore === 3) {
-        alert('Player 1 Wins!');
         this.scoreSet(1);
       }
     }
@@ -28,10 +26,8 @@ var Game = Backbone.Model.extend({
     for (var k = 0; k < 3 ; k ++) {
       var colScore = scores[k] + scores[k+3] + scores[k+6];
       if (colScore === 15) {
-        alert('Player 2 Wins!');
         this.scoreSet(2);
       } else if (colScore === 3) {
-        alert('Player 1 Wins!');
         this.scoreSet(1);
       }
     }
@@ -39,28 +35,28 @@ var Game = Backbone.Model.extend({
     var diagScore1 = scores[0] + scores[4] + scores [8];
     var diagScore2 = scores[2] + scores[4] + scores [6];
     if (diagScore1 === 15 || diagScore2 === 15) {
-      alert('Player 2 Wins!');
       this.scoreSet(2);
     } else if (diagScore1 === 3 || diagScore2 === 3) {
-      alert('Player 1 Wins!');
       this.scoreSet(1);
     }
 
     this.set({moveCount: this.get('moveCount')+1});
     if (this.get('moveCount') > 17) {
-      alert('Tie!');
       this.scoreSet(3);
     }
   },
 
   scoreSet: function(id){
     if (id === 1) {
+      alert('Player 1 Wins!');
       this.set({playerScore: this.get('playerScore')+1});
       this.newBoard();
     } else if (id === 2) {
+      alert('Player 2 Wins!');
       this.set({computerScore: this.get('computerScore')+1});
       this.newBoard();
     } else if (id === 3) {
+      alert('Tie!');
       this.set({tieScore: this.get('tieScore')+1});
       this.newBoard();
     }
