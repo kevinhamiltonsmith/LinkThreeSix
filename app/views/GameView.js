@@ -4,6 +4,10 @@ var GameView = Backbone.View.extend({
 
   initialize: function(){
     this.boardView = new BoardView({model: this.model.get('board')});
+
+    this.model.on('change', function(){
+      this.render();
+    }, this);
   },
 
   render: function(){

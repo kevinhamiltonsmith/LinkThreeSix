@@ -20,8 +20,10 @@ var Game = Backbone.Model.extend({
       var rowScore = scores[i] + scores[i+1] + scores[i+2];
       if (rowScore === 15) {
         alert('Player 2 Wins!');
+        this.scoreSet(2);
       } else if (rowScore === 3) {
         alert('Player 1 Wins!');
+        this.scoreSet(1);
       }
     }
     //check columns
@@ -29,8 +31,10 @@ var Game = Backbone.Model.extend({
       var colScore = scores[k] + scores[k+3] + scores[k+6];
       if (colScore === 15) {
         alert('Player 2 Wins!');
+        this.scoreSet(2);
       } else if (colScore === 3) {
         alert('Player 1 Wins!');
+        this.scoreSet(1);
       }
     }
     //check diagonals
@@ -38,8 +42,18 @@ var Game = Backbone.Model.extend({
     var diagScore2 = scores[2] + scores[4] + scores [6];
     if (diagScore1 === 15 || diagScore2 === 15) {
       alert('Player 2 Wins!');
+      this.scoreSet(2);
     } else if (diagScore1 === 3 || diagScore2 === 3) {
       alert('Player 1 Wins!');
+      this.scoreSet(1);
+    }
+  },
+
+  scoreSet: function(id){
+    if (id === 1) {
+      this.set({playerScore: this.get('playerScore')+1});
+    } else if (id === 2) {
+      this.set({computerScore: this.get('computerScore')+1});
     }
   }
 });
