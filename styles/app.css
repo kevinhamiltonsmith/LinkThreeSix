@@ -30,8 +30,6 @@ h1 {
   text-align: center;
   font-size: 25px;
 }
-.player-score {
-}
 table {
   border-spacing: 0;
   background-color: #ddd;
@@ -65,4 +63,13 @@ table {
 }
 .col2 {
   border-left: 2px solid #000;
+}
+.board-view .hidden{
+  color: #ddd;
+}
+.playerBlue {
+  color: blue;
+}
+.computerRed {
+  color: red;
 }
