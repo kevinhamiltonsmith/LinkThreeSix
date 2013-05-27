@@ -26,9 +26,29 @@ h1 {
 }
 .scoreboard div {
   display: inline-block;
-  width: 200px;
   text-align: center;
   font-size: 25px;
+}
+.player-score, .computer-score {
+  width: 150px;
+}
+.tie-score {
+  width: 100px;
+}
+.player-score span {
+  color: blue;
+  font-size: 30px;
+  padding-left: 5px;
+}
+.computer-score span {
+  color: red;
+  font-size: 30px;
+  padding-left: 5px;
+}
+.tie-score span {
+  color: #000;
+  font-size: 30px;
+  padding-left: 5px;
 }
 table {
   border-spacing: 0;
