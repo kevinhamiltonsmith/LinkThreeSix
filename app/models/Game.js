@@ -1,13 +1,10 @@
 var Game = Backbone.Model.extend({
 
   initialize: function(){
-    this.set({playerScore: 0, computerScore: 0, tieScore: 0, newGame: false});
+    this.set({playerScore: 0, computerScore: 0, tieScore: 0, newGame: false, moveCount: 0});
     this.set('board', new Board());
 
-    this.get('board').on('change', function(){
-      this.winCheck();
-      console.log(this);
-    }, this);
+    this.boardChangeListener();
   },
 
   winCheck: function(){
@@ -48,6 +45,12 @@ var Game = Backbone.Model.extend({
       alert('Player 1 Wins!');
       this.scoreSet(1);
     }
+
+    this.set({moveCount: this.get('moveCount')+1});
+    if (this.get('moveCount') > 17) {
+      alert('Tie!');
+      this.scoreSet(3);
+    }
   },
 
   scoreSet: function(id){
@@ -57,10 +60,19 @@ var Game = Backbone.Model.extend({
     } else if (id === 2) {
       this.set({computerScore: this.get('computerScore')+1});
       this.newBoard();
+    } else if (id === 3) {
+      this.set({tieScore: this.get('tieScore')+1});
+      this.newBoard();
     }
   },
 
   newBoard: function(){
-    this.set({newGame: true});
+    this.set({newGame: true, moveCount: 0});
+  },
+
+  boardChangeListener: function(){
+    this.get('board').on('change', function(){
+      this.winCheck();
+    }, this);
   }
 });

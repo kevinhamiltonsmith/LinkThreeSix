@@ -10,12 +10,14 @@ var GameView = Backbone.View.extend({
     }, this);
 
     this.model.on('change:newGame', function(){
+      this.$el.children().detach();
       this.model.set('newGame', false);
       if(this.boardView) {
         this.boardView.remove();
       }
       this.model.set('board', new Board());
       this.boardView = new BoardView({model: this.model.get('board')});
+      this.model.boardChangeListener();
       this.render();
       // debugger;
     }, this);
