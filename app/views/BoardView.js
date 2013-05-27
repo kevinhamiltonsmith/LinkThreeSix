@@ -8,8 +8,6 @@ var BoardView = Backbone.View.extend({
     'click td': function(event){
       var squareValue = parseInt($(event.currentTarget).html());
       var position = $(event.currentTarget).data("position");
-      //TODO: use dupal array at each square w/ show/hide css class
-      // $(event.currentTarget).addClass('showSquare');
       this.model.setSquare(squareValue, position);
     }
   },

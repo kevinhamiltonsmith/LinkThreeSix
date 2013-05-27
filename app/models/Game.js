@@ -8,14 +8,34 @@ var Game = Backbone.Model.extend({
   winCheck: function(){
     var gameBoard = this.get('board').get('board');
     var scores = [];
-    for (var i = 0; i < gameBoard.length; i++) {
-      scores.push(gameBoard[i][2]);
+    for (var j = 0; j < gameBoard.length; j++) {
+      scores.push(gameBoard[j][2]);
     }
-    console.log(scores);
     //check rows
-
+    for (var i = 0; i < 9 ; i += 3) {
+      var rowScore = scores[i] + scores[i+1] + scores[i+2];
+      if (rowScore === 15) {
+        alert('Player 2 Wins!');
+      } else if (rowScore === 3) {
+        alert('Player 1 Wins!');
+      }
+    }
     //check columns
-
+    for (var k = 0; k < 3 ; k ++) {
+      var colScore = scores[k] + scores[k+3] + scores[k+6];
+      if (colScore === 15) {
+        alert('Player 2 Wins!');
+      } else if (colScore === 3) {
+        alert('Player 1 Wins!');
+      }
+    }
     //check diagonals
+    var diagScore1 = scores[0] + scores[4] + scores [8];
+    var diagScore2 = scores[2] + scores[4] + scores [6];
+    if (diagScore1 === 15 || diagScore2 === 15) {
+      alert('Player 2 Wins!');
+    } else if (diagScore1 === 3 || diagScore2 === 3) {
+      alert('Player 1 Wins!');
+    }
   }
 });
