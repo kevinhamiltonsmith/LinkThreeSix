@@ -2,7 +2,7 @@ var Board = Backbone.Model.extend({
 
   initialize: function(){
     var initialBoard = [];
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 25; i++) {
       initialBoard.push([0,"hidden",0]);
     }
     this.set({board: initialBoard, turn: "player"});
