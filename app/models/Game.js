@@ -8,35 +8,25 @@ var Game = Backbone.Model.extend({
   },
 
   winCheck: function(array){
-    var scores = [];
-
-//TODO: use this array argument
-    console.log(array);
-
-    // var gameBoard = this.get('board').get('board');
-    // for (var j = 0; j < gameBoard.length; j++) {
-    //   scores.push(gameBoard[j][2]);
-    // }
-
     //check rows
     for (var i = 0; i < 25 ; i += 5) {
-      var rowScore = scores[i] + scores[i+1] + scores[i+2] + scores[i+3] + scores[i+4];
+      var rowScore = array[i] + array[i+1] + array[i+2] + array[i+3] + array[i+4];
       this.singleScoreCheck(rowScore);
     }
     //check columns
     for (var k = 0; k < 5 ; k ++) {
-      var colScore = scores[k] + scores[k+5] + scores[k+10] + scores[k+15] + scores[k+20];
+      var colScore = array[k] + array[k+5] + array[k+10] + array[k+15] + array[k+20];
       this.singleScoreCheck(colScore);
     }
     //check diagonals
     //check down to right
     for (var m = -2; m < 3; m++) {
-      var diagScore1 = scores[m] + scores[m+6] + scores[m+12] + scores[m+18] + scores[m+24]
+      var diagScore1 = array[m] + array[m+6] + array[m+12] + array[m+18] + array[m+24]
       this.singleScoreCheck(diagScore1);
     }
     //check down to left
     for (var m = 2; m < 7; m++) {
-      var diagScore2 = scores[m] + scores[m+4] + scores[m+8] + scores[m+12] + scores[m+16]
+      var diagScore2 = array[m] + array[m+4] + array[m+8] + array[m+12] + array[m+16]
       this.singleScoreCheck(diagScore2);
     }
 //TODO: update this for new boardChangeListener

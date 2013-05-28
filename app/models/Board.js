@@ -18,18 +18,23 @@ var Board = Backbone.Model.extend({
       var score = 1;
       if (this.get("turn") === "player") {
         mark = "X";
+        this.setNewBoard(mark, position, color);
         this.computerMove(position);
       } else {
         mark = "O";
         color = "computerRed";
         score = 10;
+        this.setNewBoard(mark, position, color);
         this.playerMove(position);
       }
-      //clone array here to preserve Backbone change listener in BoardView 
-      var newSquares = this.get('board').slice(0);
-      newSquares[position] = [mark, color];
-      this.set('board', newSquares);
     }
+  },
+
+  setNewBoard: function(mark, position, color) {
+    //clone array here to preserve Backbone change listener in BoardView
+    var newSquares = this.get('board').slice(0);
+    newSquares[position] = [mark, color];
+    this.set('board', newSquares);
   },
 
   computerMove: function(position) {
