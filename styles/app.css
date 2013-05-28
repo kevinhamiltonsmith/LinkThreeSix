@@ -3,7 +3,7 @@ body {
 }
 .game-view {
   margin: 1px auto;
-  width: 500px;
+  width: 550px;
   border-radius: 5px;
 }
 h1 {
@@ -55,7 +55,7 @@ table {
   font-size: 50px;
 }
 .board-view td {
-  width: 100px;
+  width: 80px;
   height: 75px;
   text-align: center;
 }

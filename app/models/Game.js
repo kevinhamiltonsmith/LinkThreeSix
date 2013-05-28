@@ -13,36 +13,40 @@ var Game = Backbone.Model.extend({
     for (var j = 0; j < gameBoard.length; j++) {
       scores.push(gameBoard[j][2]);
     }
+
     //check rows
     for (var i = 0; i < 25 ; i += 5) {
       var rowScore = scores[i] + scores[i+1] + scores[i+2] + scores[i+3] + scores[i+4];
-      if (rowScore === 50) {
-        this.scoreSet(2);
-      } else if (rowScore === 5) {
-        this.scoreSet(1);
-      }
+      this.singleScoreCheck(rowScore);
     }
     //check columns
     for (var k = 0; k < 5 ; k ++) {
       var colScore = scores[k] + scores[k+5] + scores[k+10] + scores[k+15] + scores[k+20];
-      if (colScore === 50) {
-        this.scoreSet(2);
-      } else if (colScore === 5) {
-        this.scoreSet(1);
-      }
+      this.singleScoreCheck(colScore);
     }
     //check diagonals
-    var diagScore1 = scores[0] + scores[6] + scores [12] + scores[18] + scores[24];
-    var diagScore2 = scores[4] + scores[8] + scores [12] + scores[16] + scores[20];
-    if (diagScore1 === 50 || diagScore2 === 50) {
-      this.scoreSet(2);
-    } else if (diagScore1 === 5 || diagScore2 === 5) {
-      this.scoreSet(1);
+    //check down to right
+    for (var m = -2; m < 3; m++) {
+      var diagScore1 = scores[m] + scores[m+6] + scores[m+12] + scores[m+18] + scores[m+24]
+      this.singleScoreCheck(diagScore1);
+    }
+    //check down to left
+    for (var m = 2; m < 7; m++) {
+      var diagScore2 = scores[m] + scores[m+4] + scores[m+8] + scores[m+12] + scores[m+16]
+      this.singleScoreCheck(diagScore2);
     }
 
     this.set({moveCount: this.get('moveCount')+1});
     if (this.get('moveCount') > 49) {
       this.scoreSet(3);
+    }
+  },
+
+  singleScoreCheck: function (score) {
+    if (score === 30) {
+      this.scoreSet(2);
+    } else if (score === 3) {
+      this.scoreSet(1);
     }
   },
 
