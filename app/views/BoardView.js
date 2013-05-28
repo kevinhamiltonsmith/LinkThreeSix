@@ -25,12 +25,12 @@ var BoardView = Backbone.View.extend({
     var html = [];
     var n = 0;
     for (var i = 0; i < 3; i++) {
-      html.push("<tr class='row-"+i+"'>")
+      html.push("<tr class='row-"+i+"'>");
       for (var j = 0; j < 3; j++){
         html[i] = html[i] + "<td data-position='"+n+"' class='col"+j+" "+board[n][1]+"'>" + board[n][0] + "</td>";
         n++;
       }
-      html[i] = html[i] + "</tr>"
+      html[i] = html[i] + "</tr>";
     }
     this.$el.html(html);
     return this;
