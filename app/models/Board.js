@@ -19,7 +19,7 @@ var Board = Backbone.Model.extend({
       } else {
         mark = "O";
         color = "computerRed";
-        score = 5;
+        score = 10;
         this.playerMove();
       }
       var newSquares = this.get('board').slice(0);
