@@ -7,12 +7,16 @@ var Game = Backbone.Model.extend({
     this.boardChangeListener();
   },
 
-  winCheck: function(){
-    var gameBoard = this.get('board').get('board');
+  winCheck: function(array){
     var scores = [];
-    for (var j = 0; j < gameBoard.length; j++) {
-      scores.push(gameBoard[j][2]);
-    }
+
+//TODO: use this array argument
+    console.log(array);
+
+    // var gameBoard = this.get('board').get('board');
+    // for (var j = 0; j < gameBoard.length; j++) {
+    //   scores.push(gameBoard[j][2]);
+    // }
 
     //check rows
     for (var i = 0; i < 25 ; i += 5) {
@@ -35,7 +39,7 @@ var Game = Backbone.Model.extend({
       var diagScore2 = scores[m] + scores[m+4] + scores[m+8] + scores[m+12] + scores[m+16]
       this.singleScoreCheck(diagScore2);
     }
-
+//TODO: update this for new boardChangeListener
     this.set({moveCount: this.get('moveCount')+1});
     if (this.get('moveCount') > 49) {
       this.scoreSet(3);
@@ -71,8 +75,11 @@ var Game = Backbone.Model.extend({
   },
 
   boardChangeListener: function(){
-    this.get('board').on('change', function(){
-      this.winCheck();
+    this.get('board').on('change:score1', function(){
+      this.winCheck(this.get('board').get('score1'));
+    }, this);
+    this.get('board').on('change:score2', function(){
+      this.winCheck(this.get('board').get('score2'));
     }, this);
   }
 });
