@@ -4,6 +4,7 @@ var GameScoreView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
+    
     this.model.on('change:gameScore1 change:gameScore2', function(){
       this.render();
     }, this);
