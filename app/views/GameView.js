@@ -22,6 +22,7 @@ var GameView = Backbone.View.extend({
     }, this);
   },
 
+//TODO: put each scoreboard in a separate view
   render: function(){
     var html = "<h1>Connect Three</h1>" +
                   "<div class='scoreboard'>" +

@@ -2,14 +2,14 @@ var Board = Backbone.Model.extend({
 
   initialize: function(){
     var initialBoard = [];
-    var score1 = [];
-    var score2 = [];
+    var p1SqScore = [];
+    var p2SqScore = [];
     for (var i = 0; i < 25; i++) {
       initialBoard.push([0,"hidden"]);
-      score1.push(0);
-      score2.push(0);
+      p1SqScore.push(0);
+      p2SqScore.push(0);
     }
-    this.set({board: initialBoard, turn: "player", score1: score1, score2: score2});
+    this.set({board: initialBoard, turn: "player", p1SqScore: p1SqScore, p2SqScore: p2SqScore});
   },
 
   setSquare: function(mark, position){
@@ -39,15 +39,15 @@ var Board = Backbone.Model.extend({
 
   computerMove: function(position) {
     this.set({turn: "computer"});
-    var newscore1 = this.get('score1').slice(0);
-    newscore1[position] = 1;
-    this.set('score1', newscore1);
+    var p1SqScoreNew = this.get('p1SqScore').slice(0);
+    p1SqScoreNew[position] = 1;
+    this.set('p1SqScore', p1SqScoreNew);
   },
 
   playerMove: function(position) {
     this.set({turn: "player"});
-    var newscore2 = this.get('score2').slice(0);
-    newscore2[position] = 10;
-    this.set('score2', newscore2);
+    var p2SqScoreNew = this.get('p2SqScore').slice(0);
+    p2SqScoreNew[position] = 10;
+    this.set('p2SqScore', p2SqScoreNew);
   }
 });

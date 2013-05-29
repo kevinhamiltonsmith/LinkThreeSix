@@ -76,11 +76,11 @@ var Game = Backbone.Model.extend({
   },
 
   boardChangeListener: function(){
-    this.get('board').on('change:score1', function(){
-      this.winCheck(this.get('board').get('score1'));
+    this.get('board').on('change:p1SqScore', function(){
+      this.winCheck(this.get('board').get('p1SqScore'));
     }, this);
-    this.get('board').on('change:score2', function(){
-      this.winCheck(this.get('board').get('score2'));
+    this.get('board').on('change:p2SqScore', function(){
+      this.winCheck(this.get('board').get('p2SqScore'));
     }, this);
   }
 });
