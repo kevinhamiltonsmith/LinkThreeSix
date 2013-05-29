@@ -5,7 +5,7 @@ var GameView = Backbone.View.extend({
   initialize: function(){
     this.boardView = new BoardView({model: this.model.get('board')});
 
-    this.model.on('change:playerScore change:computerScore change:tieScore', function(){
+    this.model.on('change:playerScore change:computerScore change:tieScore change:gameScore1 change:gameScore2', function(){
       this.render();
     }, this);
 
@@ -19,7 +19,6 @@ var GameView = Backbone.View.extend({
       this.boardView = new BoardView({model: this.model.get('board')});
       this.model.boardChangeListener();
       this.render();
-      // debugger;
     }, this);
   },
 
@@ -33,9 +32,10 @@ var GameView = Backbone.View.extend({
                   "</div>" + 
                   "<div class='gameboard'>" +
                     "<h2>Game Score</h2>" +
-                    "<div class='player-score'>Player 1: <span>" + this.model.get('playerScore') + "</span></div>" +
-                    "<div class='computer-score'>Player 2: <span>" + this.model.get('computerScore') + "</span></div>" +
-                  "</div><div style='clear: both;'></div>";
+                    "<div class='player-score'>Player 1: <span>" + this.model.get('gameScore1') + "</span></div>" +
+                    "<div class='computer-score'>Player 2: <span>" + this.model.get('gameScore2') + "</span></div>" +
+                  "</div>" +
+                  "<div class='clear'></div>";
     return this.$el.html([
       html,
       this.boardView.$el

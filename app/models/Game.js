@@ -1,7 +1,7 @@
 var Game = Backbone.Model.extend({
 
   initialize: function(){
-    this.set({playerScore: 0, computerScore: 0, tieScore: 0, newGame: false, moveCount: 0});
+    this.set({playerScore: 0, computerScore: 0, tieScore: 0, gameScore1: 0, gameScore2: 0, newGame: false, moveCount: 0});
     this.set('board', new Board());
 
     this.boardChangeListener();
@@ -38,12 +38,23 @@ var Game = Backbone.Model.extend({
 
   singleScoreCheck: function (score) {
     if (score === 30) {
-      this.scoreSet(2);
+      this.gameScoreSet(2);
     } else if (score === 3) {
-      this.scoreSet(1);
+      this.gameScoreSet(1);
     }
   },
 
+//TODO: This un-binds BoardView click event?
+  gameScoreSet: function(id) {
+    if (id == 1) {
+      this.set({gameScore1: this.get('gameScore1')+1});
+    }
+    if (id == 2) {
+      this.set({gameScore2: this.get('gameScore2')+1});
+    }
+  },
+
+//TODO: Update this for new game scoring
   scoreSet: function(id){
     if (id === 1) {
       alert('Player 1 Wins!');
