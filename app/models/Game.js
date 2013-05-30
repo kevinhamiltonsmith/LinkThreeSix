@@ -7,6 +7,7 @@ var Game = Backbone.Model.extend({
     this.boardChangeListener();
   },
 
+//TODO: fix scoring math bug
   winCheck: function(array){
     //check rows
     for (var i = 0; i < 25 ; i += 5) {
@@ -29,32 +30,53 @@ var Game = Backbone.Model.extend({
       var diagScore2 = array[m] + array[m+4] + array[m+8] + array[m+12] + array[m+16]
       this.singleScoreCheck(diagScore2);
     }
-//TODO: update this for new boardChangeListener
-    this.set({moveCount: this.get('moveCount')+1});
-    if (this.get('moveCount') > 49) {
-      this.scoreSet(3);
+  },
+
+//TODO: check these values incrementally
+  singleScoreCheck: function(score) {
+    switch(score) {
+      case 5:
+        this.gameScoreSet(1, 5);
+        break;
+      case 4:
+        this.gameScoreSet(1, 3);
+        break;
+      case 3:
+        this.gameScoreSet(1, 1);
+        break;
+      case 50:
+        this.gameScoreSet(2, 5);
+        break;
+      case 40:
+        this.gameScoreSet(2, 3);
+        break;
+      case 30:
+        this.gameScoreSet(2, 1);
+        break;
     }
   },
 
-  singleScoreCheck: function (score) {
-    if (score === 30) {
-      this.gameScoreSet(2);
-    } else if (score === 3) {
-      this.gameScoreSet(1);
-    }
+//TODO: check array values?
+  finalScoreCheck: function() {
+    this.winCheck(this.get('board').get('p1SqScore'));
+    this.winCheck(this.get('board').get('p2SqScore'));
+    var finalScore1 = this.get('gameScore1');
+    var finalScore2 = this.get('gameScore2');
+    alert('end of game');
   },
 
-//TODO: This un-binds BoardView click event?
-  gameScoreSet: function(id) {
+  gameScoreSet: function(id, score) {
     if (id == 1) {
-      this.set({gameScore1: this.get('gameScore1')+1});
+      this.set({gameScore1: this.get('gameScore1')+score});
+      console.log(this.get('gameScore1'));
     }
     if (id == 2) {
-      this.set({gameScore2: this.get('gameScore2')+1});
+      this.set({gameScore2: this.get('gameScore2')+score});
+      console.log(this.get('gameScore2'));
     }
   },
 
-//TODO: Update this for new game scoring
+//TODO: Update this for new game scoring and wire up to finalScoreCheck
   scoreSet: function(id){
     if (id === 1) {
       alert('Player 1 Wins!');
@@ -75,12 +97,16 @@ var Game = Backbone.Model.extend({
     this.set({newGame: true, moveCount: 0});
   },
 
+//TODO: score check each time a piece is played?
   boardChangeListener: function(){
-    this.get('board').on('change:p1SqScore', function(){
-      this.winCheck(this.get('board').get('p1SqScore'));
+    this.get('board').on('change:p1SqScore change:p2SqScore', function(){
+      this.set({moveCount: this.get('moveCount')+1});
+      if (this.get('moveCount') > 24) {
+        this.finalScoreCheck();
+      }
     }, this);
-    this.get('board').on('change:p2SqScore', function(){
-      this.winCheck(this.get('board').get('p2SqScore'));
-    }, this);
+    // this.get('board').on('change:p2SqScore', function(){
+      // this.winCheck(this.get('board').get('p2SqScore'));
+    // }, this);
   }
 });
