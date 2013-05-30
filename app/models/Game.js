@@ -5,13 +5,24 @@ var Game = Backbone.Model.extend({
     this.set('board', new Board());
 
     this.boardChangeListener();
+//TODO: test data
+    // this.finalScoreCheck();
   },
 
 //TODO: fix scoring math bug
   winCheck: function(array){
     //check rows
+    var rowScore, colScore, diagScore1, diagScore2;
     for (var i = 0; i < 25 ; i += 5) {
-      var rowScore = array[i] + array[i+1] + array[i+2] + array[i+3] + array[i+4];
+      // var rowScore = array[i] + array[i+1] + array[i+2] + array[i+3] + array[i+4];
+      //chaeck 4 in a row
+
+      //check 3 in a row
+      for (var z = 0; z < 3; z++) {
+        if (array[i] === array[i+1] === array[i+2]){
+          rowScore = 1;
+        }
+      }
       this.singleScoreCheck(rowScore);
     }
     //check columns
@@ -101,7 +112,7 @@ var Game = Backbone.Model.extend({
   boardChangeListener: function(){
     this.get('board').on('change:p1SqScore change:p2SqScore', function(){
       this.set({moveCount: this.get('moveCount')+1});
-      if (this.get('moveCount') > 24) {
+      if (this.get('moveCount') > 35) {
         this.finalScoreCheck();
       }
     }, this);

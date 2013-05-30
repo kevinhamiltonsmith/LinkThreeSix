@@ -4,11 +4,15 @@ var Board = Backbone.Model.extend({
     var initialBoard = [];
     var p1SqScore = [];
     var p2SqScore = [];
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < 36; i++) {
       initialBoard.push([0,"hidden"]);
       p1SqScore.push(0);
       p2SqScore.push(0);
     }
+//TODO: Test Data
+// p1SqScore = [1,0,1,1,1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,1,1,1,1];
+// p2SqScore = [0,10,0,0,0,10,0,10,10,10,0,10,0,10,0,10,0,10,10,10,10,0,0,0,0]
+// initialBoard = [[1,"playerBlue"],[10,"computerRed"],[1,"playerBlue"],[1,"playerBlue"],[1,"playerBlue"],[10,"computerRed"],[1,"playerBlue"],[10,"computerRed"],[10,"computerRed"],[10,"computerRed"],[1,"playerBlue"],[10,"computerRed"],[1,"playerBlue"],[10,"computerRed"],[1,"playerBlue"],[10,"computerRed"],[1,"playerBlue"],[10,"computerRed"],[10,"computerRed"],[10,"computerRed"],[10,"computerRed"],[1,"playerBlue"],[1,"playerBlue"],[1,"playerBlue"],[1,"playerBlue"]];
     this.set({board: initialBoard, turn: "player", p1SqScore: p1SqScore, p2SqScore: p2SqScore});
   },
 
