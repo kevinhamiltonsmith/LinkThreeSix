@@ -6,85 +6,96 @@ var Game = Backbone.Model.extend({
 
     this.boardChangeListener();
 //TODO: test data
-    // this.finalScoreCheck();
+    this.finalScoreCheck();
   },
 
 //TODO: fix scoring math bug
-  winCheck: function(array){
-    //check rows
-    var rowScore, colScore, diagScore1, diagScore2;
-    for (var i = 0; i < 25 ; i += 5) {
-      // var rowScore = array[i] + array[i+1] + array[i+2] + array[i+3] + array[i+4];
-      //chaeck 4 in a row
-
-      //check 3 in a row
-      for (var z = 0; z < 3; z++) {
-        if (array[i] === array[i+1] === array[i+2]){
-          rowScore = 1;
+  winCheck: function(array, player){
+    function areEqual(){
+      for (var y = 1; y < arguments.length; y++) {
+        if (arguments[y] !== arguments[y-1]) {
+          return false;
         }
       }
-      this.singleScoreCheck(rowScore);
+      return true;
+    };
+    var colScore = 0;
+    var diagScore1 = 0;
+    var diagScore2 = 0;
+    //check rows
+    for (var i = 0; i < 36 ; i += 6) {
+      var rowScore = 0;
+      var z = 0;
+      while (z < 4) {
+        //check 6 in a row
+        if (z < 1) {
+          if (array[i] === array[i+1] === array[i+2] === array[i+3] === array[i+4] === array[i+5]){
+            rowScore = 20;
+            z = 5;
+          }
+        }
+        //check 5 in a row
+        if (z < 2) {
+          if (array[i+z] === array[i+1+z] === array[i+2+z] === array[i+3+z] === array[i+4+z]){
+            rowScore = 9;
+            z = 5;
+          }
+        }
+        //check 4 in a row
+        if (z < 3) {
+          if (array[i+z] === array[i+1+z] === array[i+2+z] === array[i+3+z]){
+            rowScore = 3;
+            z = 5;
+          }
+        }
+        //check 3 in a row
+        if (areEqual(player,array[i+z],array[i+1+z],array[i+2+z])){
+          rowScore = 1;
+          z = 5;
+        }
+        z++
+      }
+      console.log('rowScore:',rowScore,'player:',player,'player', player);
+      if (rowScore) {
+        this.gameScoreSet(rowScore, player);
+      }
     }
     //check columns
-    for (var k = 0; k < 5 ; k ++) {
-      var colScore = array[k] + array[k+5] + array[k+10] + array[k+15] + array[k+20];
-      this.singleScoreCheck(colScore);
-    }
-    //check diagonals
-    //check down to right
-    for (var m = -2; m < 3; m++) {
-      var diagScore1 = array[m] + array[m+6] + array[m+12] + array[m+18] + array[m+24]
-      this.singleScoreCheck(diagScore1);
-    }
-    //check down to left
-    for (var m = 2; m < 7; m++) {
-      var diagScore2 = array[m] + array[m+4] + array[m+8] + array[m+12] + array[m+16]
-      this.singleScoreCheck(diagScore2);
-    }
+    // for (var k = 0; k < 5 ; k ++) {
+    //   var colScore = array[k] + array[k+5] + array[k+10] + array[k+15] + array[k+20];
+    //   this.singleScoreCheck(colScore);
+    // }
+    // //check diagonals
+    // //check down to right
+    // for (var m = -2; m < 3; m++) {
+    //   var diagScore1 = array[m] + array[m+6] + array[m+12] + array[m+18] + array[m+24]
+    //   this.singleScoreCheck(diagScore1);
+    // }
+    // //check down to left
+    // for (var m = 2; m < 7; m++) {
+    //   var diagScore2 = array[m] + array[m+4] + array[m+8] + array[m+12] + array[m+16]
+    //   this.singleScoreCheck(diagScore2);
+    // }
   },
 
-//TODO: check these values incrementally
-  singleScoreCheck: function(score) {
-    switch(score) {
-      case 5:
-        this.gameScoreSet(1, 5);
-        break;
-      case 4:
-        this.gameScoreSet(1, 3);
-        break;
-      case 3:
-        this.gameScoreSet(1, 1);
-        break;
-      case 50:
-        this.gameScoreSet(2, 5);
-        break;
-      case 40:
-        this.gameScoreSet(2, 3);
-        break;
-      case 30:
-        this.gameScoreSet(2, 1);
-        break;
+  gameScoreSet: function(score, id) {
+    if (id == 1) {
+      this.set({gameScore1: this.get('gameScore1')+score});
+      console.log(this.get('gameScore1'));
+    }
+    if (id == 10) {
+      this.set({gameScore2: this.get('gameScore2')+score});
+      console.log(this.get('gameScore2'));
     }
   },
 
 //TODO: check array values?
   finalScoreCheck: function() {
-    this.winCheck(this.get('board').get('p1SqScore'));
-    this.winCheck(this.get('board').get('p2SqScore'));
+    this.winCheck(this.get('board').get('p1SqScore'), 1);
+    this.winCheck(this.get('board').get('p2SqScore'), 10);
     var finalScore1 = this.get('gameScore1');
     var finalScore2 = this.get('gameScore2');
-    alert('end of game');
-  },
-
-  gameScoreSet: function(id, score) {
-    if (id == 1) {
-      this.set({gameScore1: this.get('gameScore1')+score});
-      console.log(this.get('gameScore1'));
-    }
-    if (id == 2) {
-      this.set({gameScore2: this.get('gameScore2')+score});
-      console.log(this.get('gameScore2'));
-    }
+    // alert('end of game');
   },
 
 //TODO: Update this for new game scoring and wire up to finalScoreCheck
