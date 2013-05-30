@@ -12,48 +12,41 @@ var Game = Backbone.Model.extend({
 //TODO: fix scoring math bug
   winCheck: function(array, player){
     function areEqual(){
-      for (var y = 1; y < arguments.length; y++) {
-        if (arguments[y] !== arguments[y-1]) {
+      for (var j = 1; j < arguments.length; j++) {
+        if (arguments[j] !== arguments[j-1]) {
           return false;
         }
       }
       return true;
     };
-    var colScore = 0;
-    var diagScore1 = 0;
-    var diagScore2 = 0;
     //check rows
     for (var i = 0; i < 36 ; i += 6) {
       var rowScore = 0;
       var z = 0;
       while (z < 4) {
-        //check 6 in a row
         if (z < 1) {
-          if (array[i] === array[i+1] === array[i+2] === array[i+3] === array[i+4] === array[i+5]){
+          if (areEqual(player, array[i], array[i+1], array[i+2], array[i+3], array[i+4], array[i+5])){
             rowScore = 20;
-            z = 5;
+            z = 4;
           }
         }
-        //check 5 in a row
         if (z < 2) {
-          if (array[i+z] === array[i+1+z] === array[i+2+z] === array[i+3+z] === array[i+4+z]){
-            rowScore = 9;
-            z = 5;
+          if (areEqual(player, array[i+z], array[i+1+z], array[i+2+z], array[i+3+z], array[i+4+z])){
+            rowScore = 10;
+            z = 4;
           }
         }
-        //check 4 in a row
         if (z < 3) {
-          if (array[i+z] === array[i+1+z] === array[i+2+z] === array[i+3+z]){
+          if (areEqual(player, array[i+z], array[i+1+z], array[i+2+z], array[i+3+z])){
             rowScore = 3;
-            z = 5;
+            z = 4;
           }
         }
-        //check 3 in a row
         if (areEqual(player,array[i+z],array[i+1+z],array[i+2+z])){
           rowScore = 1;
-          z = 5;
+          z = 4;
         }
-        z++
+        z++;
       }
       console.log('rowScore:',rowScore,'player:',player,'player', player);
       if (rowScore) {
@@ -61,6 +54,39 @@ var Game = Backbone.Model.extend({
       }
     }
     //check columns
+    for (var i = 0; i < 6 ; i ++) {
+      var colScore = 0;
+      var z = 0;
+      while (z < 24) {
+        if (z < 6) {
+          if (areEqual(player, array[i], array[i+6], array[i+12], array[i+18], array[i+24], array[i+30])){
+            colScore = 20;
+            z = 24;
+          }
+        }
+        if (z < 12) {
+          if (areEqual(player, array[i+z], array[i+6+z], array[i+12+z], array[i+18+z], array[i+24+z])){
+            colScore = 10;
+            z = 24;
+          }
+        }
+        if (z < 18) {
+          if (areEqual(player, array[i+z], array[i+6+z], array[i+12+z], array[i+18+z])){
+            colScore = 3;
+            z = 24;
+          }
+        }
+        if (areEqual(player,array[i+z],array[i+6+z],array[i+12+z])){
+          colScore = 1;
+          z = 24;
+        }
+        z += 6;
+      }
+      console.log('colScore:',colScore,'player:',player,'player', player);
+      if (colScore) {
+        this.gameScoreSet(colScore, player);
+      }
+    }    
     // for (var k = 0; k < 5 ; k ++) {
     //   var colScore = array[k] + array[k+5] + array[k+10] + array[k+15] + array[k+20];
     //   this.singleScoreCheck(colScore);
@@ -81,11 +107,9 @@ var Game = Backbone.Model.extend({
   gameScoreSet: function(score, id) {
     if (id == 1) {
       this.set({gameScore1: this.get('gameScore1')+score});
-      console.log(this.get('gameScore1'));
     }
     if (id == 10) {
       this.set({gameScore2: this.get('gameScore2')+score});
-      console.log(this.get('gameScore2'));
     }
   },
 
