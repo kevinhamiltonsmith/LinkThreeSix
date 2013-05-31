@@ -6,7 +6,7 @@ var Game = Backbone.Model.extend({
 
     this.boardChangeListener();
 //TODO: test data
-    // this.finalScoreCheck();
+    this.finalScoreCheck();
   },
 
   winCheck: function(array, player) {
@@ -14,7 +14,7 @@ var Game = Backbone.Model.extend({
     //TODO: refactor diagonal checkers
     function areEqual(){
       for (var j = 1; j < arguments.length; j++) {
-        if (arguments[j] !== arguments[j-1]) {
+        if (arguments[j] == undefined || arguments[j] !== arguments[j-1]) {
           return false;
         }
       }
@@ -83,36 +83,64 @@ var Game = Backbone.Model.extend({
       if (colScore) { this.gameScoreSet(colScore, player); }
     }    
     // check diagonals
+//TODO: bug fix for smaller diagonals
+//      wraps into the next row
+//      2D array?
+    var twoDArray = [];
+    for (var i = 0; i < 36; i += 6) {
+      twoDArray.push(array.slice(i, i+6));
+    }
+    console.log(twoDArray);
     //check down to right
-    for (var i = -3; i < 4; i++) {
+    for (var i = 0; i < 4; i++) {
       var diagScore1 = 0;
       z = 0;
-      while (z < 28) {
-        if (z < 7) {
-         if (areEqual(player, array[i], array[i+7], array[i+14], array[i+21], array[i+28], array[i+35])) {
+      while (z < 4) {
+        //6 in a diag
+        if (z < 1 && i == 0) {
+          if (areEqual(player, twoDArray[i][z], twoDArray[i+1][z+1], twoDArray[i+2][z+2], twoDArray[i+3][z+3], twoDArray[i+4][z+4], twoDArray[i+5][z+4])) {
             diagScore1 = 20;
-            z = 28;
+            z = 4;
           }
         }
-        if (z < 14) {
-          if (areEqual(player, array[i+z], array[i+7+z], array[i+14+z], array[i+21+z], array[i+28+z])) {
+        // 5 in a diag
+        if (z < 2 && i < 2) {
+          var zz = z;
+          i == 1 ? zz = 0 : zz = z;
+          if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2], twoDArray[i+3+zz][zz+3], twoDArray[i+4+zz][zz+4])) {
             diagScore1 = 10;
-            z = 28;
-          }         
-        }
-        if (z < 21) {
-          if (areEqual(player, array[i+z], array[i+7+z], array[i+14+z], array[i+21+z])) {
-            diagScore1 = 3;
-            z = 28;
+            z = 4;
           }
         }
-        if (areEqual(player, array[i+z], array[i+7+z], array[i+14+z])) {
-          diagScore1 = 1;
-          z = 28;
+        // 4 in a diag
+        if (z < 3 && i < 3) {
+          var zz = z;
+          if (i == 1 && z == 2) { zz = 0 };
+          if (i == 2) { zz = 0 };
+          console.log("i", i, "z", z, "zz:", zz)
+          if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2], twoDArray[i+3+zz][zz+3])) {
+            diagScore1 = 3;
+            z = 4;
+          } 
         }
-        z += 7;
+
+//TODO: fix this logic
+        //3 in a diag
+        var zz = z;
+        if (i == 1 && z == 2) { zz = 0 };
+        if (i == 2) { zz = 0 };
+        console.log("i", i, "z", z, "zz:", zz)
+        if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2])) {
+          diagScore1 = 3;
+          z = 4;
+        }
+
+        z++;
       }
-      if (diagScore1) { this.gameScoreSet(diagScore1, player); }
+      if (diagScore1) {
+        console.log('diagScore1', diagScore1)
+        this.gameScoreSet(diagScore1, player);
+      }
     }
     //check down to left
     for (var i = 2; i < 9; i++) {
@@ -120,24 +148,24 @@ var Game = Backbone.Model.extend({
       z = 0;
       while (z < 20) {
         if (z < 5) {
-          if (areEqual(player, array[i], array[i+5], array[i+10], array[i+15], array[i+20], array[i+25])) {
+          if (areEqual(player, twoDArray[i], twoDArray[i+5], twoDArray[i+10], twoDArray[i+15], twoDArray[i+20], twoDArray[i+25])) {
             diagScore2 = 20;
             z = 20;
           }
         }
         if (z < 10) {
-          if (areEqual(player, array[i+z], array[i+5+z], array[i+10+z], array[i+15+z], array[i+20+z])) {
+          if (areEqual(player, twoDArray[i+z], twoDArray[i+5+z], twoDArray[i+10+z], twoDArray[i+15+z], twoDArray[i+20+z])) {
             diagScore2 = 10;
             z = 20;
           }
         }
         if (z < 15) {
-          if (areEqual(player, array[i+z], array[i+5+z], array[i+10+z], array[i+15+z])) {
+          if (areEqual(player, twoDArray[i+z], twoDArray[i+5+z], twoDArray[i+10+z], twoDArray[i+15+z])) {
             diagScore2 = 3;
             z = 20;
           }
         }
-        if (areEqual(player, array[i+z], array[i+5+z], array[i+10+z])) {
+        if (areEqual(player, twoDArray[i+z], twoDArray[i+5+z], twoDArray[i+10+z])) {
           diagScore2 = 1;
           z = 20;
         }       
@@ -153,9 +181,11 @@ var Game = Backbone.Model.extend({
   gameScoreSet: function(score, id) {
     if (id == 1) {
       this.set({gameScore1: this.get('gameScore1')+score});
+      console.log("score:", score, "id:", id);
     }
     if (id == 10) {
       this.set({gameScore2: this.get('gameScore2')+score});
+      console.log("score:", score, "id:", id);
     }
   },
 
