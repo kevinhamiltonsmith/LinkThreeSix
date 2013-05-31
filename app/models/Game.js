@@ -9,8 +9,9 @@ var Game = Backbone.Model.extend({
     this.finalScoreCheck();
   },
 
-//TODO: fix scoring math bug
-  winCheck: function(array, player){
+  winCheck: function(array, player) {
+    //TODO: refactor check rows and colums to be in the same loop
+    //TODO: refactor diagonal checkers
     function areEqual(){
       for (var j = 1; j < arguments.length; j++) {
         if (arguments[j] !== arguments[j-1]) {
@@ -48,15 +49,12 @@ var Game = Backbone.Model.extend({
         }
         z++;
       }
-      console.log('rowScore:',rowScore,'player:',player,'player', player);
-      if (rowScore) {
-        this.gameScoreSet(rowScore, player);
-      }
+      if (rowScore) { this.gameScoreSet(rowScore, player); }
     }
     //check columns
     for (var i = 0; i < 6 ; i ++) {
       var colScore = 0;
-      var z = 0;
+      z = 0;
       while (z < 24) {
         if (z < 6) {
           if (areEqual(player, array[i], array[i+6], array[i+12], array[i+18], array[i+24], array[i+30])){
@@ -82,26 +80,74 @@ var Game = Backbone.Model.extend({
         }
         z += 6;
       }
-      console.log('colScore:',colScore,'player:',player,'player', player);
-      if (colScore) {
-        this.gameScoreSet(colScore, player);
-      }
+      if (colScore) { this.gameScoreSet(colScore, player); }
     }    
-    // for (var k = 0; k < 5 ; k ++) {
-    //   var colScore = array[k] + array[k+5] + array[k+10] + array[k+15] + array[k+20];
-    //   this.singleScoreCheck(colScore);
-    // }
-    // //check diagonals
-    // //check down to right
-    // for (var m = -2; m < 3; m++) {
-    //   var diagScore1 = array[m] + array[m+6] + array[m+12] + array[m+18] + array[m+24]
-    //   this.singleScoreCheck(diagScore1);
-    // }
-    // //check down to left
-    // for (var m = 2; m < 7; m++) {
-    //   var diagScore2 = array[m] + array[m+4] + array[m+8] + array[m+12] + array[m+16]
-    //   this.singleScoreCheck(diagScore2);
-    // }
+    // check diagonals
+    //check down to right
+    for (var i = -3; i < 4; i++) {
+      var diagScore1 = 0;
+      z = 0;
+      while (z < 28) {
+        if (z < 7) {
+         if (areEqual(player, array[i], array[i+7], array[i+14], array[i+21], array[i+28], array[i+35])) {
+            diagScore1 = 20;
+            z = 28;
+          }
+        }
+        if (z < 14) {
+          if (areEqual(player, array[i+z], array[i+7+z], array[i+14+z], array[i+21+z], array[i+28+z])) {
+            diagScore1 = 10;
+            z = 28;
+          }         
+        }
+        if (z < 21) {
+          if (areEqual(player, array[i+z], array[i+7+z], array[i+14+z], array[i+21+z])) {
+            diagScore1 = 3;
+            z = 28;
+          }
+        }
+        if (areEqual(player, array[i+z], array[i+7+z], array[i+14+z])) {
+          diagScore1 = 1;
+          z = 28;
+        }
+        z += 7;
+      }
+      if (diagScore1) { this.gameScoreSet(diagScore1, player); }
+    }
+    //check down to left
+    for (var i = 2; i < 9; i++) {
+      var diagScore2 = 0;
+      z = 0;
+      while (z < 20) {
+        if (z < 5) {
+          if (areEqual(player, array[i], array[i+5], array[i+10], array[i+15], array[i+20], array[i+25])) {
+            diagScore2 = 20;
+            z = 20;
+          }
+        }
+        if (z < 10) {
+          if (areEqual(player, array[i+z], array[i+5+z], array[i+10+z], array[i+15+z], array[i+20+z])) {
+            diagScore2 = 10;
+            z = 20;
+          }
+        }
+        if (z < 15) {
+          if (areEqual(player, array[i+z], array[i+5+z], array[i+10+z], array[i+15+z])) {
+            diagScore2 = 3;
+            z = 20;
+          }
+        }
+        if (areEqual(player, array[i+z], array[i+5+z], array[i+10+z])) {
+          diagScore2 = 1;
+          z = 20;
+        }       
+        z += 5;
+      }
+      if (diagScore2) { 
+        this.gameScoreSet(diagScore2, player); 
+      }
+    }
+
   },
 
   gameScoreSet: function(score, id) {
@@ -113,13 +159,12 @@ var Game = Backbone.Model.extend({
     }
   },
 
-//TODO: check array values?
   finalScoreCheck: function() {
     this.winCheck(this.get('board').get('p1SqScore'), 1);
     this.winCheck(this.get('board').get('p2SqScore'), 10);
     var finalScore1 = this.get('gameScore1');
     var finalScore2 = this.get('gameScore2');
-    // alert('end of game');
+    alert('end of game');
   },
 
 //TODO: Update this for new game scoring and wire up to finalScoreCheck
