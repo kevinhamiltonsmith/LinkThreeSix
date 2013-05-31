@@ -6,7 +6,7 @@ var Game = Backbone.Model.extend({
 
     this.boardChangeListener();
 //TODO: test data
-    this.finalScoreCheck();
+    // this.finalScoreCheck();
   },
 
   winCheck: function(array, player) {
@@ -159,6 +159,7 @@ var Game = Backbone.Model.extend({
     }
   },
 
+//TODO: wire this up with scoreSet
   finalScoreCheck: function() {
     this.winCheck(this.get('board').get('p1SqScore'), 1);
     this.winCheck(this.get('board').get('p2SqScore'), 10);
@@ -167,7 +168,7 @@ var Game = Backbone.Model.extend({
     alert('end of game');
   },
 
-//TODO: Update this for new game scoring and wire up to finalScoreCheck
+//TODO: wire this up to finalScoreCheck
   scoreSet: function(id){
     if (id === 1) {
       alert('Player 1 Wins!');
@@ -188,7 +189,6 @@ var Game = Backbone.Model.extend({
     this.set({newGame: true, moveCount: 0});
   },
 
-//TODO: score check each time a piece is played?
   boardChangeListener: function(){
     this.get('board').on('change:p1SqScore change:p2SqScore', function(){
       this.set({moveCount: this.get('moveCount')+1});
@@ -196,8 +196,5 @@ var Game = Backbone.Model.extend({
         this.finalScoreCheck();
       }
     }, this);
-    // this.get('board').on('change:p2SqScore', function(){
-      // this.winCheck(this.get('board').get('p2SqScore'));
-    // }, this);
   }
 });

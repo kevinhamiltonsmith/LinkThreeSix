@@ -21,7 +21,7 @@ var GameView = Backbone.View.extend({
   },
 
   render: function(){
-    var html = "<h1>Connect Three</h1>";
+    var html = "<h1>Connect Three or More</h1>";
     var clear = "<div class='clear'></div>";
     return this.$el.html([
       html,
