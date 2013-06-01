@@ -18,32 +18,36 @@ h1 {
 .clear {
   clear: both;
 }
-.scoreboard, .gameboard {
-  margin: 0 auto;
+.scoreboard, .game-score-board {
   box-shadow: inset 0 0 15px #111;
   padding: 10px 0;
-  background-color: #eee;
-  float: left;
+  width: 400px;
 }
 .scoreboard {
-  width: 400px;
-  margin-left: 35px;
+  margin: 0 auto;
+  background-color: #eee;
 }
-.scoreboard h2, .gameboard h2 {
+.game-score-board {
+  margin: 30px auto 0;
+  background-color: #fff;
+}
+.scoreboard h2, .game-score-board h2 {
   text-align: center;
   margin: 0 0 15px 0;
 }
-.scoreboard div, .gameboard div {
+.scoreboard div, .game-score-board div {
   display: inline-block;
   text-align: center;
   font-size: 25px;
 }
-.gameboard {
-  width: 300px;
-  margin-left: 30px;
+.game-score-hide {
+  display: none;
 }
 .player-score, .computer-score {
   width: 150px;
+}
+.game-score-board .player-score, .game-score-board .computer-scoreboard {
+  width: 200px;
 }
 .tie-score {
   width: 100px;
@@ -65,7 +69,7 @@ table {
   box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 22px 70px 4px rgba(0,0,0,0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
 }
 .board-view {
-  margin: 60px auto 0;
+  margin: 50px auto 0;
   font-size: 50px;
 }
 .board-view td {

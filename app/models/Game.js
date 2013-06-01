@@ -21,23 +21,22 @@ var Game = Backbone.Model.extend({
     this.winCheck(this.get('board').get('p2SqScore'), 10);
     var finalScore1 = this.get('gameScore1');
     var finalScore2 = this.get('gameScore2');
-    alert('end of game');
     this.scoreSet(finalScore1, finalScore2);
   },
 
   scoreSet: function(score1, score2) {
     if (score1 > score2) {
-      alert('Player 1 Wins!');
+      // alert('Player 1 Wins!');
       this.set({playerScore: this.get('playerScore')+1});
-      this.newBoard();
+      // this.newBoard();
     } else if (score1 < score2) {
-      alert('Player 2 Wins!');
+      // alert('Player 2 Wins!');
       this.set({computerScore: this.get('computerScore')+1});
-      this.newBoard();
+      // this.newBoard();
     } else {
-      alert('Tie!');
+      // alert('Tie!');
       this.set({tieScore: this.get('tieScore')+1});
-      this.newBoard();
+      // this.newBoard();
     }
   },
 
@@ -48,7 +47,8 @@ var Game = Backbone.Model.extend({
   boardChangeListener: function(){
     this.get('board').on('change:p1SqScore change:p2SqScore', function(){
       this.set({moveCount: this.get('moveCount')+1});
-      if (this.get('moveCount') > 35) {
+  //TODO
+      if (this.get('moveCount') > 5) {
         this.finalScoreCheck();
       }
     }, this);
