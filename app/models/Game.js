@@ -9,6 +9,56 @@ var Game = Backbone.Model.extend({
     this.finalScoreCheck();
   },
 
+  gameScoreSet: function(score, id) {
+    if (id == 1) {
+      this.set({gameScore1: this.get('gameScore1')+score});
+      console.log("score:", score, "id:", id);
+    }
+    if (id == 10) {
+      this.set({gameScore2: this.get('gameScore2')+score});
+      console.log("score:", score, "id:", id);
+    }
+  },
+
+//TODO: wire this up with scoreSet
+  finalScoreCheck: function() {
+    this.winCheck(this.get('board').get('p1SqScore'), 1);
+    this.winCheck(this.get('board').get('p2SqScore'), 10);
+    var finalScore1 = this.get('gameScore1');
+    var finalScore2 = this.get('gameScore2');
+    alert('end of game');
+  },
+
+//TODO: wire this up to finalScoreCheck
+  scoreSet: function(id){
+    if (id === 1) {
+      alert('Player 1 Wins!');
+      this.set({playerScore: this.get('playerScore')+1});
+      this.newBoard();
+    } else if (id === 2) {
+      alert('Player 2 Wins!');
+      this.set({computerScore: this.get('computerScore')+1});
+      this.newBoard();
+    } else if (id === 3) {
+      alert('Tie!');
+      this.set({tieScore: this.get('tieScore')+1});
+      this.newBoard();
+    }
+  },
+
+  newBoard: function(){
+    this.set({newGame: true, moveCount: 0});
+  },
+
+  boardChangeListener: function(){
+    this.get('board').on('change:p1SqScore change:p2SqScore', function(){
+      this.set({moveCount: this.get('moveCount')+1});
+      if (this.get('moveCount') > 35) {
+        this.finalScoreCheck();
+      }
+    }, this);
+  },
+
   winCheck: function(array, player) {
     //TODO: refactor check rows and colums to be in the same loop
     //TODO: refactor diagonal checkers
@@ -84,8 +134,6 @@ var Game = Backbone.Model.extend({
     }    
     // check diagonals
 //TODO: bug fix for smaller diagonals
-//      wraps into the next row
-//      2D array?
     var twoDArray = [];
     for (var i = 0; i < 36; i += 6) {
       twoDArray.push(array.slice(i, i+6));
@@ -117,22 +165,22 @@ var Game = Backbone.Model.extend({
           var zz = z;
           if (i == 1 && z == 2) { zz = 0 };
           if (i == 2) { zz = 0 };
-          console.log("i", i, "z", z, "zz:", zz)
           if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2], twoDArray[i+3+zz][zz+3])) {
             diagScore1 = 3;
             z = 4;
           } 
         }
-
-//TODO: fix this logic
         //3 in a diag
-        var zz = z;
-        if (i == 1 && z == 2) { zz = 0 };
-        if (i == 2) { zz = 0 };
-        console.log("i", i, "z", z, "zz:", zz)
-        if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2])) {
-          diagScore1 = 3;
-          z = 4;
+        if (z < 4) {
+          var zz = z;
+          if (i == 1 && z == 3) { zz = 0 };
+          if (i == 2 && z > 1) { zz = 0; };
+          if (i == 3) { zz = 0 };
+          console.log("i", i, "z", z, "zz:", zz)
+          if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2])) {
+            diagScore1 = 1;
+            z = 4;
+          }
         }
 
         z++;
@@ -176,55 +224,5 @@ var Game = Backbone.Model.extend({
       }
     }
 
-  },
-
-  gameScoreSet: function(score, id) {
-    if (id == 1) {
-      this.set({gameScore1: this.get('gameScore1')+score});
-      console.log("score:", score, "id:", id);
-    }
-    if (id == 10) {
-      this.set({gameScore2: this.get('gameScore2')+score});
-      console.log("score:", score, "id:", id);
-    }
-  },
-
-//TODO: wire this up with scoreSet
-  finalScoreCheck: function() {
-    this.winCheck(this.get('board').get('p1SqScore'), 1);
-    this.winCheck(this.get('board').get('p2SqScore'), 10);
-    var finalScore1 = this.get('gameScore1');
-    var finalScore2 = this.get('gameScore2');
-    alert('end of game');
-  },
-
-//TODO: wire this up to finalScoreCheck
-  scoreSet: function(id){
-    if (id === 1) {
-      alert('Player 1 Wins!');
-      this.set({playerScore: this.get('playerScore')+1});
-      this.newBoard();
-    } else if (id === 2) {
-      alert('Player 2 Wins!');
-      this.set({computerScore: this.get('computerScore')+1});
-      this.newBoard();
-    } else if (id === 3) {
-      alert('Tie!');
-      this.set({tieScore: this.get('tieScore')+1});
-      this.newBoard();
-    }
-  },
-
-  newBoard: function(){
-    this.set({newGame: true, moveCount: 0});
-  },
-
-  boardChangeListener: function(){
-    this.get('board').on('change:p1SqScore change:p2SqScore', function(){
-      this.set({moveCount: this.get('moveCount')+1});
-      if (this.get('moveCount') > 35) {
-        this.finalScoreCheck();
-      }
-    }, this);
   }
 });
