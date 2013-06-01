@@ -4,15 +4,23 @@ var GameScoreView = Backbone.View.extend({
 
   initialize: function() {
     this.model.on('change:gameScore1 change:gameScore2', function(){
-      this.render();
+      var finalScore1 = this.model.get('gameScore1');
+      var finalScore2 = this.model.get('gameScore2');
+      var winner = "no-winner"
+      if (finalScore1 > finalScore2) {
+        winner = "player-1-win";
+      } else if (finalScore1 < finalScore2) {
+        winner = "player-2-win";
+      }
+      this.render(winner);
     }, this);
   },
 
-  render: function() {
+  render: function(winner) {
     var html = "<h2>Game Score</h2>" +
                 "<div class='player-score'>Player 1: <span>" + this.model.get('gameScore1') + "</span></div>" +
                 "<div class='computer-score'>Player 2: <span>" + this.model.get('gameScore2') + "</span></div>";
-    $('game-score-board').removeClass('game-score-hide');
+    $('.game-score-board').addClass(winner);
     this.$el.html(html).slideDown('slow');
     return this;
   }

@@ -62,7 +62,15 @@ h1 {
 .computer-score span {
   color: red;
 }
-
+.player-1-win {
+  border: 2px solid blue;
+}
+.player-2-win {
+  border: 2px solid red;
+}
+.no-winner {
+  border: 2px solid gray;
+}
 table {
   border-spacing: 0;
   background-color: #ddd;

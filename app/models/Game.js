@@ -26,17 +26,11 @@ var Game = Backbone.Model.extend({
 
   scoreSet: function(score1, score2) {
     if (score1 > score2) {
-      // alert('Player 1 Wins!');
       this.set({playerScore: this.get('playerScore')+1});
-      // this.newBoard();
     } else if (score1 < score2) {
-      // alert('Player 2 Wins!');
       this.set({computerScore: this.get('computerScore')+1});
-      // this.newBoard();
     } else {
-      // alert('Tie!');
       this.set({tieScore: this.get('tieScore')+1});
-      // this.newBoard();
     }
   },
 
