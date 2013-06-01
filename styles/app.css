@@ -106,3 +106,12 @@ table {
 .computerRed {
   color: red;
 }
+.new-game-button {
+  float: right;
+  position: relative;
+  top: -85px;
+  width: 130px;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 1em;
+}
