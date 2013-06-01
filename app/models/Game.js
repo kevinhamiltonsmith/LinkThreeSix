@@ -133,59 +133,44 @@ var Game = Backbone.Model.extend({
       if (colScore) { this.gameScoreSet(colScore, player); }
     }    
     // check diagonals
-//TODO: bug fix for smaller diagonals
     var twoDArray = [];
     for (var i = 0; i < 36; i += 6) {
       twoDArray.push(array.slice(i, i+6));
     }
     //check down to right
-    for (var i = 0; i < 4; i++) {
+    for (var i = -3; i < 4; i++) {
       var diagScore1 = 0;
       z = 0;
       while (z < 4) {
-        //6 in a diag
-        if (z < 1 && i == 0) {
-          if (areEqual(player, twoDArray[i][z], twoDArray[i+1][z+1], twoDArray[i+2][z+2], twoDArray[i+3][z+3], twoDArray[i+4][z+4], twoDArray[i+5][z+4])) {
+        if (i == 0 && z < 1) {
+          if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i+1], twoDArray[z+2][z+2], twoDArray[z+3][i+3], twoDArray[z+4][i+4], twoDArray[z+5][i+5])) {
             diagScore1 = 20;
             z = 4;
           }
         }
-        // 5 in a diag
-        if (z < 2 && i < 2) {
-          var zz = z;
-          i == 1 ? zz = 0 : zz = z;
-          if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2], twoDArray[i+3+zz][zz+3], twoDArray[i+4+zz][zz+4])) {
+        if (i < 2 && z < 2) {
+          if (areEqual(player, twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2], twoDArray[z+3][i+z+3], twoDArray[z+4][i+z+4])) {
             diagScore1 = 10;
             z = 4;
           }
         }
-        // 4 in a diag
-        if (z < 3 && i < 3) {
-          var zz = z;
-          if (i == 1 && z == 2) { zz = 0 };
-          if (i == 2) { zz = 0 };
-          if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2], twoDArray[i+3+zz][zz+3])) {
+        if (i < 3 && z < 3) {
+          if (areEqual(player, twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2], twoDArray[z+3][i+z+3])) {
             diagScore1 = 3;
             z = 4;
-          } 
-        }
-        //3 in a diag
+          }
+        }        
         if (z < 4) {
-          var zz = z;
-          if (i == 1 && z == 3) { zz = 0 };
-          if (i == 2 && z > 1) { zz = 0; };
-          if (i == 3) { zz = 0 };
-          // console.log("i", i, "z", z, "zz:", zz)
-          if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2])) {
+          // console.log('diag1 check 3:', 'z',z,'i+z',i+z, 'next', 'z+1',z+1,'i+z+1',i+z+1, 'next', 'z+2',z+2,'i+z+2',i+z+2, "--checked values-- ",twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2] )
+          if (areEqual(player, twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2])) {
             diagScore1 = 1;
             z = 4;
           }
         }
-
         z++;
       }
       if (diagScore1) {
-        // console.log('diagScore1', diagScore1)
+        console.log('diagScore1', diagScore1, player)
         this.gameScoreSet(diagScore1, player);
       }
     }
@@ -201,19 +186,19 @@ var Game = Backbone.Model.extend({
           }
         }
         if (i < 7 && z < 2) {
-          if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i-1], twoDArray[z+2][z-2], twoDArray[z+3][i-3], twoDArray[z+4][i-4])) {
+          // console.log('diag2 check 5:', 'z',z,'i-z',i-z, 'next', 'z+1',z+1,'i-z-1',i-z-1, 'next', 'z+2',z+2,'i-z-2',i-z-2, 'next', 'z+3',z+3,'i-z-3',i-z-3, 'next', 'z+4',z+4,'i-z-4',i-z-4, "--checked values-- ",twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2], twoDArray[z+3][i-z-3],twoDArray[z+4][i-z-4])
+          if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2], twoDArray[z+3][i-z-3], twoDArray[z+4][i-z-4])) {
             diagScore2 = 10;
             z = 4;
           }
         }
         if (i < 8 && z < 3) {
-          if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i-1], twoDArray[z+2][z-2], twoDArray[z+3][i-3])) {
+          if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][z-2], twoDArray[z+3][i-z-3])) {
             diagScore2 = 3;
             z = 4;
           }
         }
         if (z < 4) {
-          console.log('checking down-left-3:', 'z',z,'i-z',i-z,'[z][i-z]',twoDArray[z][i-z], 'z+1',z+1,'i-z-1',i-z-1,'[z+1][i-z-1]',twoDArray[z+1][i-z-1], 'z+2',z+2,'i-z-2',i-z-2,'[z+2][i-z-2]',twoDArray[z+2][i-z-2])
           if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2])) {
             diagScore2 = 1;
             z = 4;
