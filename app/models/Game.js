@@ -138,7 +138,6 @@ var Game = Backbone.Model.extend({
     for (var i = 0; i < 36; i += 6) {
       twoDArray.push(array.slice(i, i+6));
     }
-    console.log(twoDArray);
     //check down to right
     for (var i = 0; i < 4; i++) {
       var diagScore1 = 0;
@@ -176,7 +175,7 @@ var Game = Backbone.Model.extend({
           if (i == 1 && z == 3) { zz = 0 };
           if (i == 2 && z > 1) { zz = 0; };
           if (i == 3) { zz = 0 };
-          console.log("i", i, "z", z, "zz:", zz)
+          // console.log("i", i, "z", z, "zz:", zz)
           if (areEqual(player, twoDArray[i+zz][zz], twoDArray[i+1+zz][zz+1], twoDArray[i+2+zz][zz+2])) {
             diagScore1 = 1;
             z = 4;
@@ -186,7 +185,7 @@ var Game = Backbone.Model.extend({
         z++;
       }
       if (diagScore1) {
-        console.log('diagScore1', diagScore1)
+        // console.log('diagScore1', diagScore1)
         this.gameScoreSet(diagScore1, player);
       }
     }
@@ -194,33 +193,37 @@ var Game = Backbone.Model.extend({
     for (var i = 2; i < 9; i++) {
       var diagScore2 = 0;
       z = 0;
-      while (z < 20) {
-        if (z < 5) {
-          if (areEqual(player, twoDArray[i], twoDArray[i+5], twoDArray[i+10], twoDArray[i+15], twoDArray[i+20], twoDArray[i+25])) {
+      while (z < 4) {
+        if (i == 5 && z < 1) {
+          if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i-1], twoDArray[z+2][z-2], twoDArray[z+3][i-3], twoDArray[z+4][i-4], twoDArray[z+5][i-5])) {
             diagScore2 = 20;
-            z = 20;
+            z = 4;
           }
         }
-        if (z < 10) {
-          if (areEqual(player, twoDArray[i+z], twoDArray[i+5+z], twoDArray[i+10+z], twoDArray[i+15+z], twoDArray[i+20+z])) {
+        if (i < 7 && z < 2) {
+          if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i-1], twoDArray[z+2][z-2], twoDArray[z+3][i-3], twoDArray[z+4][i-4])) {
             diagScore2 = 10;
-            z = 20;
+            z = 4;
           }
         }
-        if (z < 15) {
-          if (areEqual(player, twoDArray[i+z], twoDArray[i+5+z], twoDArray[i+10+z], twoDArray[i+15+z])) {
+        if (i < 8 && z < 3) {
+          if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i-1], twoDArray[z+2][z-2], twoDArray[z+3][i-3])) {
             diagScore2 = 3;
-            z = 20;
+            z = 4;
           }
         }
-        if (areEqual(player, twoDArray[i+z], twoDArray[i+5+z], twoDArray[i+10+z])) {
-          diagScore2 = 1;
-          z = 20;
-        }       
-        z += 5;
+        if (z < 4) {
+          console.log('checking down-left-3:', 'z',z,'i-z',i-z,'[z][i-z]',twoDArray[z][i-z], 'z+1',z+1,'i-z-1',i-z-1,'[z+1][i-z-1]',twoDArray[z+1][i-z-1], 'z+2',z+2,'i-z-2',i-z-2,'[z+2][i-z-2]',twoDArray[z+2][i-z-2])
+          if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2])) {
+            diagScore2 = 1;
+            z = 4;
+          }
+        }
+        z++;
       }
       if (diagScore2) { 
-        this.gameScoreSet(diagScore2, player); 
+        console.log('diagScore2', diagScore2)
+        this.gameScoreSet(diagScore2, player);
       }
     }
 
