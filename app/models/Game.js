@@ -5,41 +5,36 @@ var Game = Backbone.Model.extend({
     this.set('board', new Board());
 
     this.boardChangeListener();
-//TODO: test data
-    this.finalScoreCheck();
   },
 
   gameScoreSet: function(score, id) {
     if (id == 1) {
       this.set({gameScore1: this.get('gameScore1')+score});
-      console.log("score:", score, "id:", id);
     }
     if (id == 10) {
       this.set({gameScore2: this.get('gameScore2')+score});
-      console.log("score:", score, "id:", id);
     }
   },
 
-//TODO: wire this up with scoreSet
   finalScoreCheck: function() {
     this.winCheck(this.get('board').get('p1SqScore'), 1);
     this.winCheck(this.get('board').get('p2SqScore'), 10);
     var finalScore1 = this.get('gameScore1');
     var finalScore2 = this.get('gameScore2');
     alert('end of game');
+    this.scoreSet(finalScore1, finalScore2);
   },
 
-//TODO: wire this up to finalScoreCheck
-  scoreSet: function(id){
-    if (id === 1) {
+  scoreSet: function(score1, score2) {
+    if (score1 > score2) {
       alert('Player 1 Wins!');
       this.set({playerScore: this.get('playerScore')+1});
       this.newBoard();
-    } else if (id === 2) {
+    } else if (score1 < score2) {
       alert('Player 2 Wins!');
       this.set({computerScore: this.get('computerScore')+1});
       this.newBoard();
-    } else if (id === 3) {
+    } else {
       alert('Tie!');
       this.set({tieScore: this.get('tieScore')+1});
       this.newBoard();
@@ -99,7 +94,10 @@ var Game = Backbone.Model.extend({
         }
         z++;
       }
-      if (rowScore) { this.gameScoreSet(rowScore, player); }
+      if (rowScore) {
+        this.gameScoreSet(rowScore, player);
+        console.log('rowScore', rowScore, 'player', player);
+      }
     }
     //check columns
     for (var i = 0; i < 6 ; i ++) {
@@ -130,7 +128,11 @@ var Game = Backbone.Model.extend({
         }
         z += 6;
       }
-      if (colScore) { this.gameScoreSet(colScore, player); }
+      if (colScore) {
+        console.log('colScore', colScore, 'player', player);
+        this.gameScoreSet(colScore, player);
+
+      }
     }    
     // check diagonals
     var twoDArray = [];
@@ -161,7 +163,6 @@ var Game = Backbone.Model.extend({
           }
         }        
         if (z < 4) {
-          // console.log('diag1 check 3:', 'z',z,'i+z',i+z, 'next', 'z+1',z+1,'i+z+1',i+z+1, 'next', 'z+2',z+2,'i+z+2',i+z+2, "--checked values-- ",twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2] )
           if (areEqual(player, twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2])) {
             diagScore1 = 1;
             z = 4;
@@ -170,7 +171,7 @@ var Game = Backbone.Model.extend({
         z++;
       }
       if (diagScore1) {
-        console.log('diagScore1', diagScore1, player)
+        console.log('diagScore1', diagScore1, 'player', player)
         this.gameScoreSet(diagScore1, player);
       }
     }
@@ -186,14 +187,13 @@ var Game = Backbone.Model.extend({
           }
         }
         if (i < 7 && z < 2) {
-          // console.log('diag2 check 5:', 'z',z,'i-z',i-z, 'next', 'z+1',z+1,'i-z-1',i-z-1, 'next', 'z+2',z+2,'i-z-2',i-z-2, 'next', 'z+3',z+3,'i-z-3',i-z-3, 'next', 'z+4',z+4,'i-z-4',i-z-4, "--checked values-- ",twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2], twoDArray[z+3][i-z-3],twoDArray[z+4][i-z-4])
           if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2], twoDArray[z+3][i-z-3], twoDArray[z+4][i-z-4])) {
             diagScore2 = 10;
             z = 4;
           }
         }
         if (i < 8 && z < 3) {
-          if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][z-2], twoDArray[z+3][i-z-3])) {
+          if (areEqual(player, twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2], twoDArray[z+3][i-z-3])) {
             diagScore2 = 3;
             z = 4;
           }
@@ -207,7 +207,7 @@ var Game = Backbone.Model.extend({
         z++;
       }
       if (diagScore2) { 
-        console.log('diagScore2', diagScore2)
+        console.log('diagScore2', diagScore2,'player', player)
         this.gameScoreSet(diagScore2, player);
       }
     }

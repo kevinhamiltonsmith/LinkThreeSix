@@ -22,6 +22,21 @@
   <script src="app/views/GameScoreboardView.js"></script>
 
   <script type="text/javascript">
+    //TEST DATA
+    //TODO: Test Data
+    // p1SqScore = [0,1,1,1,1,0,0,1,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,1,1,1,0];
+    // p2SqScore = [10,0,0,0,0,10,10,0,0,10,10,10,0,10,10,10,0,10,0,10,0,10,0,10,0,0,0,10,10,10,10,0,0,0,0,10];
+    // initialBoard = [["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"]];
+
+    //DIAGONAL TEMP TESTS
+
+    //down-right 3
+    // console.log('diag1 check 3:', 'z',z,'i+z',i+z, 'next', 'z+1',z+1,'i+z+1',i+z+1, 'next','z+2',z+2,'i+z+2',i+z+2, "--checked values-- ",twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2] )
+
+    //down-left 5
+    // console.log('diag2 check 5:', 'z',z,'i-z',i-z, 'next', 'z+1',z+1,'i-z-1',i-z-1, 'next', 'z+2',z+2,'i-z-2',i-z-2, 'next', 'z+3',z+3,'i-z-3',i-z-3, 'next', 'z+4',z+4,'i-z-4',i-z-4, "--checked values-- ",twoDArray[z][i-z], twoDArray[z+1][i-z-1], twoDArray[z+2][i-z-2], twoDArray[z+3][i-z-3],twoDArray[z+4][i-z-4])
+
+
     (function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
