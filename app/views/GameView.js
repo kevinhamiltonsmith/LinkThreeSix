@@ -2,6 +2,12 @@ var GameView = Backbone.View.extend({
 
   className: 'game-view',
 
+  events: {
+    'click .new-game-button': function(event){
+      this.model.newBoard();
+    }
+  },
+
   initialize: function(){
     this.boardView = new BoardView({model: this.model.get('board')});
     this.gameScoreView = new GameScoreView({model: game});
@@ -22,12 +28,15 @@ var GameView = Backbone.View.extend({
 
   render: function(){
     var html = "<h1>Connect Three or More</h1>";
+    var button = "<button class='new-game-button'>New Game</button>";
     var clear = "<div class='clear'></div>";
+
     return this.$el.html([
       html,
       this.gameScoreboardView.$el,
       this.gameScoreView.$el,
       clear,
+      button,
       this.boardView.$el,
     ]);
   }

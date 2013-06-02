@@ -21,15 +21,17 @@ h1 {
 .scoreboard, .game-score-board {
   box-shadow: inset 0 0 15px #111;
   padding: 10px 0;
-  width: 400px;
+  float: left;
 }
 .scoreboard {
-  margin: 0 auto;
+  margin-left: 35px;
   background-color: #eee;
+  width: 400px;
 }
 .game-score-board {
-  margin: 30px auto 0;
+  margin-left: 30px;
   background-color: #fff;
+  width: 300px;
 }
 .scoreboard h2, .game-score-board h2 {
   text-align: center;
@@ -45,9 +47,6 @@ h1 {
 }
 .player-score, .computer-score {
   width: 150px;
-}
-.game-score-board .player-score, .game-score-board .computer-scoreboard {
-  width: 200px;
 }
 .tie-score {
   width: 100px;
@@ -68,8 +67,11 @@ h1 {
 .player-2-win {
   border: 2px solid red;
 }
+.no-winner-tie {
+  border: 2px solid #000;
+}
 .no-winner {
-  border: 2px solid gray;
+  border: none;
 }
 table {
   border-spacing: 0;
@@ -77,7 +79,7 @@ table {
   box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 22px 70px 4px rgba(0,0,0,0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
 }
 .board-view {
-  margin: 50px auto 0;
+  margin: 50px auto 40px;
   font-size: 50px;
 }
 .board-view td {
@@ -107,9 +109,7 @@ table {
   color: red;
 }
 .new-game-button {
-  float: right;
-  position: relative;
-  top: -85px;
+  margin: 20px 335px 0;
   width: 130px;
   padding: 20px;
   border-radius: 10px;

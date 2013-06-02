@@ -19,9 +19,7 @@ var Game = Backbone.Model.extend({
   finalScoreCheck: function() {
     this.winCheck(this.get('board').get('p1SqScore'), 1);
     this.winCheck(this.get('board').get('p2SqScore'), 10);
-    var finalScore1 = this.get('gameScore1');
-    var finalScore2 = this.get('gameScore2');
-    this.scoreSet(finalScore1, finalScore2);
+    this.scoreSet(this.get('gameScore1'), this.get('gameScore2'));
   },
 
   scoreSet: function(score1, score2) {
@@ -35,14 +33,13 @@ var Game = Backbone.Model.extend({
   },
 
   newBoard: function(){
-    this.set({newGame: true, moveCount: 0});
+    this.set({newGame: true, moveCount: 0, gameScore1: 0, gameScore2: 0});
   },
 
   boardChangeListener: function(){
     this.get('board').on('change:p1SqScore change:p2SqScore', function(){
       this.set({moveCount: this.get('moveCount')+1});
-  //TODO
-      if (this.get('moveCount') > 35) {
+      if (this.get('moveCount') > 5) {
         this.finalScoreCheck();
       }
     }, this);
@@ -50,7 +47,6 @@ var Game = Backbone.Model.extend({
 
   winCheck: function(array, player) {
     //TODO: refactor check rows and colums to be in the same loop
-    //TODO: refactor diagonal checkers
     function areEqual(){
       for (var j = 1; j < arguments.length; j++) {
         if (arguments[j] == undefined || arguments[j] !== arguments[j-1]) {
