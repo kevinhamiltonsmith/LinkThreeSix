@@ -23,7 +23,6 @@ var GameScoreView = Backbone.View.extend({
     var html = "<h2>Game Score</h2>" +
                 "<div class='player-score'>Player 1: <span>" + this.model.get('gameScore1') + "</span></div>" +
                 "<div class='computer-score'>Player 2: <span>" + this.model.get('gameScore2') + "</span></div>";
-    console.log(winner);
     return this.$el.html(html).removeClass().addClass('game-score-board '+winner);
   }
 });

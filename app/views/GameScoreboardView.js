@@ -6,6 +6,7 @@ var GameScoreboardView = Backbone.View.extend({
     this.render();
     
     this.model.on('change:playerScore change:computerScore change:tieScore', function(){
+      $('.new-game-button').slideDown();
       this.render();
     }, this);
   },

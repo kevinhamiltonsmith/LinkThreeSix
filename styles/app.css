@@ -42,7 +42,7 @@ h1 {
   text-align: center;
   font-size: 25px;
 }
-.game-score-hide {
+.hide {
   display: none;
 }
 .player-score, .computer-score {
