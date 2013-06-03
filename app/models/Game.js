@@ -89,7 +89,6 @@ var Game = Backbone.Model.extend({
       }
       if (rowScore) {
         this.gameScoreSet(rowScore, player);
-        console.log('rowScore', rowScore, 'player', player);
       }
     }
     //check columns
@@ -122,7 +121,6 @@ var Game = Backbone.Model.extend({
         z += 6;
       }
       if (colScore) {
-        console.log('colScore', colScore, 'player', player);
         this.gameScoreSet(colScore, player);
 
       }
@@ -164,7 +162,6 @@ var Game = Backbone.Model.extend({
         z++;
       }
       if (diagScore1) {
-        console.log('diagScore1', diagScore1, 'player', player)
         this.gameScoreSet(diagScore1, player);
       }
     }
@@ -200,7 +197,6 @@ var Game = Backbone.Model.extend({
         z++;
       }
       if (diagScore2) { 
-        console.log('diagScore2', diagScore2,'player', player)
         this.gameScoreSet(diagScore2, player);
       }
     }

@@ -9,10 +9,6 @@ var Board = Backbone.Model.extend({
       p1SqScore.push(0);
       p2SqScore.push(0);
     }
-    // //TODO: Test Data
-// p1SqScore = [0,1,1,1,1,0,0,1,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,1,1,1,0];
-//  p2SqScore = [10,0,0,0,0,10,10,0,0,10,10,10,0,10,10,10,0,10,0,10,0,10,0,10,0,0,0,10,10,10,10,0,0,0,0,10];
-//  initialBoard = [["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["O","computerRed"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["X","playerBlue"],["O","computerRed"]];
     this.set({board: initialBoard, turn: "player", p1SqScore: p1SqScore, p2SqScore: p2SqScore});
   },
 
