@@ -98,6 +98,7 @@ table {
 }
 .board-view .hidden{
   color: #ddd;
+  text-indent: -9999px;
 }
 .playerBlue {
   color: blue;
