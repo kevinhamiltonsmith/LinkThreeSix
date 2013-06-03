@@ -4,10 +4,10 @@ A tic-tac-toe variation, with a larger board, with points for making rows, colum
 
 Scoring is as follows:
 
-3 in a row: 1 point
-4 in a row: 3 points
-5 in a row: 10 points
-6 in a row: 20 points
+<p>3 in a row: 1 point</p>
+<p>4 in a row: 3 points</p>
+<p>5 in a row: 10 points</p>
+<p>6 in a row: 20 points</p>
 
 <img src="http://kevinhamiltonsmith.com/wp-content/uploads/2013/06/connect-3-or-more-backbone.png" width="600" />
 
