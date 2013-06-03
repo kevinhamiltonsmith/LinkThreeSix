@@ -1,7 +1,7 @@
 var Game = Backbone.Model.extend({
 
   initialize: function(){
-    this.set({playerScore: 0, computerScore: 0, tieScore: 0, gameScore1: 0, gameScore2: 0, newGame: false, moveCount: 0});
+    this.set({playerScore: 0, computerScore: 0, tieScore: 0, gameScore1: 0, gameScore2: 0, newGame: false, moveCount: 0, prevWinner: null});
     this.set('board', new Board());
 
     this.boardChangeListener();
@@ -24,10 +24,13 @@ var Game = Backbone.Model.extend({
 
   scoreSet: function(score1, score2) {
     if (score1 > score2) {
+      this.set({prevWinner: "Player 1 Wins!"});
       this.set({playerScore: this.get('playerScore')+1});
     } else if (score1 < score2) {
+      this.set({prevWinner: "Player 2 Wins!"});
       this.set({computerScore: this.get('computerScore')+1});
     } else {
+      this.set({prevWinner: "Tie Game"});
       this.set({tieScore: this.get('tieScore')+1});
     }
   },

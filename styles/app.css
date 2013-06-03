@@ -37,13 +37,10 @@ h1 {
   text-align: center;
   margin: 0 0 15px 0;
 }
-.scoreboard div, .game-score-board div {
+.player-score, .computer-score, .tie-score {
   display: inline-block;
   text-align: center;
   font-size: 25px;
-}
-.hide {
-  display: none;
 }
 .player-score, .computer-score {
   width: 150px;
@@ -61,6 +58,9 @@ h1 {
 .computer-score span {
   color: red;
 }
+.player-1-win, .player-2-win, .no-winner-tie {
+  margin-top: -4px;
+}
 .player-1-win {
   border: 2px solid blue;
 }
@@ -68,9 +68,6 @@ h1 {
   border: 2px solid red;
 }
 .no-winner-tie {
-  border: 2px solid #000;
-}
-.no-winner {
   border: none;
 }
 table {
@@ -108,10 +105,43 @@ table {
 .computerRed {
   color: red;
 }
+.end-game {
+  position: absolute;
+  top: 275px;
+  left: 50%;
+  width: 300px;
+  height: 160px;
+  margin-left: -150px;
+  background-color: #fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 22px 70px 4px rgba(0,0,0,0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
+  border: 2px solid #000;
+  text-align: center;
+}
 .new-game-button {
-  margin: 20px 335px 0;
-  width: 130px;
-  padding: 20px;
+  margin: 5px 90px;
+  width: 120px;
+  padding: 12px;
   border-radius: 10px;
   font-size: 1em;
+  color: #d7d7d7;
+  border: solid 1px #333;
+  background: #333;
+  background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
+  background: -moz-linear-gradient(top, #666, #000);
+}
+.new-game-button:hover{
+  background: #000;
+  background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
+  background: -moz-linear-gradient(top, #444, #000);
+}
+.hide {
+  display: none;
+}
+.end-game h3 {
+  font-size: 1.5em;
+  margin: 15px;
+}
+.end-game h4 {
+  font-size: 1.1em;
+  margin: 10px;
 }

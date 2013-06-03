@@ -4,6 +4,7 @@ var GameView = Backbone.View.extend({
 
   events: {
     'click .new-game-button': function(event){
+      $('.end-game').fadeOut('fast');
       this.model.newBoard();
     }
   },
@@ -12,6 +13,7 @@ var GameView = Backbone.View.extend({
     this.boardView = new BoardView({model: this.model.get('board')});
     this.gameScoreView = new GameScoreView({model: game});
     this.gameScoreboardView = new GameScoreboardView({model: game});
+    this.endGameView = new EndGameView({model: game});
 
     this.model.on('change:newGame', function(){
       this.$el.children().detach();
@@ -28,15 +30,14 @@ var GameView = Backbone.View.extend({
 
   render: function(){
     var html = "<h1>Connect Three or More</h1>";
-    var button = "<button class='new-game-button hide'>New Game</button>";
     var clear = "<div class='clear'></div>";
 
     return this.$el.html([
       html,
       this.gameScoreboardView.$el,
       this.gameScoreView.$el,
+      this.endGameView.$el,
       clear,
-      button,
       this.boardView.$el,
     ]);
   }
