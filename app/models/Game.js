@@ -81,9 +81,11 @@ var Game = Backbone.Model.extend({
             z = 4;
           }
         }
-        if (areEqual(player,array[i+z],array[i+1+z],array[i+2+z])){
-          rowScore = 1;
-          z = 4;
+        if (z < 4) {
+          if (areEqual(player,array[i+z],array[i+1+z],array[i+2+z])){
+            rowScore = 1;
+            z = 4;
+          }
         }
         z++;
       }
@@ -114,9 +116,11 @@ var Game = Backbone.Model.extend({
             z = 24;
           }
         }
-        if (areEqual(player,array[i+z],array[i+6+z],array[i+12+z])){
-          colScore = 1;
-          z = 24;
+        if (z < 4) {
+          if (areEqual(player,array[i+z],array[i+6+z],array[i+12+z])){
+            colScore = 1;
+            z = 24;
+          }
         }
         z += 6;
       }
