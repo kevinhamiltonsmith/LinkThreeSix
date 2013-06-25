@@ -4,7 +4,7 @@ var GameView = Backbone.View.extend({
 
   events: {
     'click .new-game-button': function(event){
-      $('.end-game').fadeOut('fast');
+      // $('.end-game').fadeOut('fast');
       this.model.newBoard();
     }
   },
