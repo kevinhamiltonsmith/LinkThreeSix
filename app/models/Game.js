@@ -41,6 +41,8 @@ var Game = Backbone.Model.extend({
 
   boardChangeListener: function(){
     this.get('board').on('change:p1SqScore change:p2SqScore', function(){
+      this.winCheck(this.get('board').get('p1SqScore'), 1);
+      this.winCheck(this.get('board').get('p2SqScore'), 10);
       this.set({moveCount: this.get('moveCount')+1});
       if (this.get('moveCount') > 35) {
         this.finalScoreCheck();
@@ -49,19 +51,26 @@ var Game = Backbone.Model.extend({
   },
 
   winCheck: function(array, player) {
+    if (player === 1) {
+      this.set({gameScore1: 0});
+    } else {
+      this.set({gameScore2: 0});
+    }
+    var z = 0;
+
     //TODO: refactor check rows and colums to be in the same loop
     function areEqual(){
       for (var j = 1; j < arguments.length; j++) {
-        if (arguments[j] == undefined || arguments[j] !== arguments[j-1]) {
+        if (arguments[j] === undefined || arguments[j] !== arguments[j-1]) {
           return false;
         }
       }
       return true;
-    };
+    }
     //check rows
     for (var i = 0; i < 36 ; i += 6) {
       var rowScore = 0;
-      var z = 0;
+      z = 0;
       while (z < 4) {
         if (z < 1) {
           if (areEqual(player, array[i], array[i+1], array[i+2], array[i+3], array[i+4], array[i+5])){
@@ -128,7 +137,7 @@ var Game = Backbone.Model.extend({
         this.gameScoreSet(colScore, player);
 
       }
-    }    
+    }
     // check diagonals
     var twoDArray = [];
     for (var i = 0; i < 36; i += 6) {
@@ -139,7 +148,7 @@ var Game = Backbone.Model.extend({
       var diagScore1 = 0;
       z = 0;
       while (z < 4) {
-        if (i == 0 && z < 1) {
+        if (i === 0 && z < 1) {
           if (areEqual(player, twoDArray[z][i], twoDArray[z+1][i+1], twoDArray[z+2][z+2], twoDArray[z+3][i+3], twoDArray[z+4][i+4], twoDArray[z+5][i+5])) {
             diagScore1 = 20;
             z = 4;
@@ -156,7 +165,7 @@ var Game = Backbone.Model.extend({
             diagScore1 = 3;
             z = 4;
           }
-        }        
+        }
         if (z < 4) {
           if (areEqual(player, twoDArray[z][i+z], twoDArray[z+1][i+z+1], twoDArray[z+2][i+z+2])) {
             diagScore1 = 1;
@@ -200,7 +209,7 @@ var Game = Backbone.Model.extend({
         }
         z++;
       }
-      if (diagScore2) { 
+      if (diagScore2) {
         this.gameScoreSet(diagScore2, player);
       }
     }
