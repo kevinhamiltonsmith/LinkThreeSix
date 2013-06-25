@@ -38,7 +38,7 @@ var GameView = Backbone.View.extend({
       this.gameScoreView.$el,
       this.endGameView.$el,
       clear,
-      this.boardView.$el,
+      this.boardView.$el
     ]);
   }
 });

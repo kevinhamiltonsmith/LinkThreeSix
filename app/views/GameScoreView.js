@@ -6,13 +6,13 @@ var GameScoreView = Backbone.View.extend({
     this.model.on('change:gameScore1 change:gameScore2', function(){
       var finalScore1 = this.model.get('gameScore1');
       var finalScore2 = this.model.get('gameScore2');
-      var winner = "no-winner-tie"
+      var winner = "no-winner-tie";
       if (finalScore1 > finalScore2) {
         winner = "player-1-win";
       } else if (finalScore1 < finalScore2) {
         winner = "player-2-win";
-      } else if (finalScore1 == 0 && finalScore2 == 0) {
-        winner = "no-winner"
+      } else if (finalScore1 === 0 && finalScore2 === 0) {
+        winner = "no-winner";
       }
 
       this.render(winner);

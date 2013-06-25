@@ -4,7 +4,7 @@ var GameScoreboardView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
-    
+
     this.model.on('change:playerScore change:computerScore change:tieScore', function(){
       $('.end-game').fadeIn('slow');
       this.render();

@@ -57,8 +57,11 @@ var Game = Backbone.Model.extend({
       this.set({gameScore2: 0});
     }
     var z = 0;
+    var twoDArray = [];
+    for (var i = 0; i < 36; i += 6) {
+      twoDArray.push(array.slice(i, i+6));
+    }
 
-    //TODO: refactor check rows and colums to be in the same loop
     function areEqual(){
       for (var j = 1; j < arguments.length; j++) {
         if (arguments[j] === undefined || arguments[j] !== arguments[j-1]) {
@@ -67,31 +70,32 @@ var Game = Backbone.Model.extend({
       }
       return true;
     }
+
     //check rows
-    for (var i = 0; i < 36 ; i += 6) {
+    for (var i = 0; i < 6 ; i++) {
       var rowScore = 0;
       z = 0;
       while (z < 4) {
         if (z < 1) {
-          if (areEqual(player, array[i], array[i+1], array[i+2], array[i+3], array[i+4], array[i+5])){
+          if (areEqual(player, twoDArray[i][0], twoDArray[i][1], twoDArray[i][2], twoDArray[i][3], twoDArray[i][4], twoDArray[i][5])){
             rowScore = 20;
             z = 4;
           }
         }
         if (z < 2) {
-          if (areEqual(player, array[i+z], array[i+1+z], array[i+2+z], array[i+3+z], array[i+4+z])){
+          if (areEqual(player, twoDArray[i][z], twoDArray[i][1+z], twoDArray[i][2+z], twoDArray[i][3+z], twoDArray[i][4+z])){
             rowScore = 10;
             z = 4;
           }
         }
         if (z < 3) {
-          if (areEqual(player, array[i+z], array[i+1+z], array[i+2+z], array[i+3+z])){
+          if (areEqual(player, twoDArray[i][z], twoDArray[i][1+z], twoDArray[i][2+z], twoDArray[i][3+z])){
             rowScore = 3;
             z = 4;
           }
         }
         if (z < 4) {
-          if (areEqual(player,array[i+z],array[i+1+z],array[i+2+z])){
+          if (areEqual(player,twoDArray[i][z],twoDArray[i][1+z],twoDArray[i][2+z])){
             rowScore = 1;
             z = 4;
           }
@@ -107,31 +111,31 @@ var Game = Backbone.Model.extend({
       var colScore = 0;
       z = 0;
       while (z < 24) {
-        if (z < 6) {
-          if (areEqual(player, array[i], array[i+6], array[i+12], array[i+18], array[i+24], array[i+30])){
+        if (z < 1) {
+          if (areEqual(player, twoDArray[0][i], twoDArray[1][i], twoDArray[2][i], twoDArray[3][i], twoDArray[4][i], twoDArray[5][i])){
             colScore = 20;
-            z = 24;
+            z = 4;
           }
         }
-        if (z < 12) {
-          if (areEqual(player, array[i+z], array[i+6+z], array[i+12+z], array[i+18+z], array[i+24+z])){
+        if (z < 2) {
+          if (areEqual(player, twoDArray[0+z][i], twoDArray[1+z][i], twoDArray[2+z][i], twoDArray[3+z][i], twoDArray[4+z][i])){
             colScore = 10;
-            z = 24;
+            z = 4;
           }
         }
-        if (z < 18) {
-          if (areEqual(player, array[i+z], array[i+6+z], array[i+12+z], array[i+18+z])){
+        if (z < 3) {
+          if (areEqual(player, twoDArray[0+z][i], twoDArray[1+z][i], twoDArray[2+z][i], twoDArray[3+z][i])){
             colScore = 3;
-            z = 24;
+            z = 4;
           }
         }
         if (z < 4) {
-          if (areEqual(player,array[i+z],array[i+6+z],array[i+12+z])){
+          if (areEqual(player, twoDArray[0+z][i], twoDArray[1+z][i], twoDArray[2+z][i])){
             colScore = 1;
-            z = 24;
+            z = 4;
           }
         }
-        z += 6;
+        z++;
       }
       if (colScore) {
         this.gameScoreSet(colScore, player);
@@ -139,10 +143,6 @@ var Game = Backbone.Model.extend({
       }
     }
     // check diagonals
-    var twoDArray = [];
-    for (var i = 0; i < 36; i += 6) {
-      twoDArray.push(array.slice(i, i+6));
-    }
     //check down to right
     for (var i = -3; i < 4; i++) {
       var diagScore1 = 0;
