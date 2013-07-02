@@ -158,11 +158,31 @@ table {
 .hide {
   display: none;
 }
-.end-game-modal h3 {
-  font-size: 1.5em;
-  margin: 15px;
+#howToPlay p {
+  text-align: left;
+  margin-bottom: 5px;
+  line-height: 1.4em;
 }
-.end-game-modal h4 {
-  font-size: 1.1em;
-  margin: 10px;
+#howToPlay span {
+  margin: 0 51px;
+}
+.info-blue {
+  color: blue;
+}
+.info-red {
+  color: red;
+}
+.info-center {
+  text-align: center;
+}
+#howToPlay .link-scoring p {
+  font-weight: bold;
+  margin-bottom: 0;
+  line-height: 1.2em
+}
+.link-scoring {
+  margin: 10px 0;
+}
+.lets-play {
+  margin: 20px 0;
 }
