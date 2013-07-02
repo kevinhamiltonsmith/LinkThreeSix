@@ -18,6 +18,12 @@ h1 {
 .clear {
   clear: both;
 }
+.main-logo {
+  color: #fff;
+}
+.main-logo:hover {
+  color: #3085d6;
+}
 .scoreboard, .game-score-board {
   box-shadow: inset 0 0 15px #111;
   padding: 10px 0;
