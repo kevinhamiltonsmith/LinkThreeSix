@@ -44,7 +44,7 @@ var Game = Backbone.Model.extend({
       this.winCheck(this.get('board').get('p1SqScore'), 1);
       this.winCheck(this.get('board').get('p2SqScore'), 10);
       this.set({moveCount: this.get('moveCount')+1});
-      if (this.get('moveCount') > 5) { //35
+      if (this.get('moveCount') > 35) { //35
         this.finalScoreCheck();
       }
     }, this);

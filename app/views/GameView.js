@@ -63,7 +63,7 @@ var GameView = Backbone.View.extend({
                 '<p>6 in a row: 20 points</p>' +
               '</div>' +
               '<p>The game is scored in real time, after every move. The Game Score board highlights the current game leader.</p>' +
-              '<p>After each game, the Total Wins board updates to reflectgit  the winner of the current game, and keeps track of the entire match.</p>' +
+              '<p>After each game, the Total Wins board updates to reflect the winner of the current game, and keeps track of the entire match.</p>' +
               '<p><strong>The first player to win 3 single games, wins the match!</strong></p>' +
               '<div class="btn primary medium lets-play"><a href="#" class="switch" gumby-trigger="|#howToPlay">Let\'s Play!</a></div>' +
             '</div>' +
