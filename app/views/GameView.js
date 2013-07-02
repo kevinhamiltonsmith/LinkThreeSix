@@ -3,10 +3,8 @@ var GameView = Backbone.View.extend({
   className: 'game-view',
 
   events: {
-    'click .new-game-button': function(event){
-      $('.end-game').fadeOut('fast');
-      this.model.newBoard();
-    }
+    'click .new-game-button, .new-game-button-nav': 'newGame',
+    'click .new-game-button, .new-game-button-nav, .close-button': 'closeEndGame'
   },
 
   initialize: function(){
@@ -34,11 +32,11 @@ var GameView = Backbone.View.extend({
         '<div class="row">' +
           '<a class="toggle" gumby-trigger=".ul-nav" href="#"><i class="icon-menu"></i></a>' +
           '<h3 class="four columns logo">' +
-            '<a href="index.html" class="main-logo">Six Tac Toe</a>' +
+            '<a href="index.html" class="main-logo">Link Thirty Six</a>' +
           '</h3>' +
           '<div class="logged-in-nav">' +
             '<ul class="eight columns ul-nav">' +
-              '<li><a href="#">New Game</a></li>' +
+              '<li class="new-game-button-nav"><a href="#">New Game</a></li>' +
               '<li><a href="#">How to Play</a></li>' +
               '<li><a href="#">About</a></li>' +
             '</ul>' +
@@ -55,5 +53,13 @@ var GameView = Backbone.View.extend({
       clear,
       this.boardView.$el
     ]);
+  },
+
+  newGame: function() {
+    this.model.newBoard();
+  },
+
+  closeEndGame: function() {
+    $('.end-game').fadeOut('fast');
   }
 });
