@@ -186,3 +186,6 @@ table {
 .lets-play {
   margin: 20px 0;
 }
+#about p {
+  text-align: left;
+}
