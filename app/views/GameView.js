@@ -29,13 +29,32 @@ var GameView = Backbone.View.extend({
     }, this);
   },
 
+  newGame: function() {
+    this.model.newBoard();
+  },
+
+  closeEndGame: function(e) {
+    e.preventDefault();
+    $('.end-game').fadeOut('fast');
+  },
+
+  howToPlayEvent: function(e) {
+    e.preventDefault();
+    $('.how-to-play').trigger('gumby.trigger');
+  },
+
+  aboutEvent: function(e) {
+    e.preventDefault();
+    $('.about-nav').trigger('gumby.trigger');
+  },
+
   render: function(){
     var html ='' +
       '<div class="navbar" id="nav1">' +
         '<div class="row">' +
           '<a class="toggle" gumby-trigger=".ul-nav" href="#"><i class="icon-menu"></i></a>' +
           '<h3 class="four columns logo">' +
-            '<a href="index.html" class="main-logo">Link Thirty Six</a>' +
+            '<a href="index.html" class="main-logo">Link ThreeSix</a>' +
           '</h3>' +
           '<div class="logged-in-nav">' +
             '<ul class="eight columns ul-nav">' +
@@ -95,24 +114,5 @@ var GameView = Backbone.View.extend({
       clear,
       this.boardView.$el
     ]);
-  },
-
-  newGame: function() {
-    this.model.newBoard();
-  },
-
-  closeEndGame: function(e) {
-    e.preventDefault();
-    $('.end-game').fadeOut('fast');
-  },
-
-  howToPlayEvent: function(e) {
-    e.preventDefault();
-    $('.how-to-play').trigger('gumby.trigger');
-  },
-
-  aboutEvent: function(e) {
-    e.preventDefault();
-    $('.about-nav').trigger('gumby.trigger');
   }
 });
