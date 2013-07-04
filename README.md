@@ -5,7 +5,7 @@ Link ThreeSix
 
 This is a two player game. Alternating turns, each player places their mark on a single board square, until the board is filled
 
-Player 1: Blue X'sPlayer 2: Red O's
+Player 1: Blue X's, Player 2: Red O's
 
 Your objective is to make links of 3 in a row, or more. Links can be made horizontally, vertically, or diagonally.
 
