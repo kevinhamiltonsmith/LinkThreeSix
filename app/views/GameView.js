@@ -70,7 +70,7 @@ var GameView = Backbone.View.extend({
           '<a class="close switch close-button" gumby-trigger="|#howToPlay"><i class="icon-cancel-circled" /></i></a>' +
           '<div class="row">' +
             '<div class="ten columns centered center-text">' +
-              '<h3>How to Play Link Thirty Six</h3>' +
+              '<h3>How to Play Link ThreeSix</h3>' +
               '<p>This is a two player game. Alternating turns, each player places their mark on a single board square, until the board is filled</p>' +
               '<p class="info-center"><span class="info-blue">Player 1: Blue X\'s</span><span class="info-red">Player 2: Red O\'s</span></p>' +
               '<p>Your objective is to make links of <strong>3 in a row, or more</strong>. Links can be made horizontally, vertically, or diagonally.</p>' +
@@ -97,10 +97,10 @@ var GameView = Backbone.View.extend({
               '<h3>About</h3>' +
               '<h4>Created by <a href="http://kevinhamiltonsmith.com">Kevin Smith</a> at <a href="http://hackreactor.com">Hack Reactor</a></h4>' +
               '<p>This game started as a one-day project I created at Hack Reactor to learn the basics of a JavaScript MVC framework called Backbone.js.</p>' +
-              '<p>It was originally built as traditional tic-tac-toe game, but this was fairly simple to accomplish, and I wast left wanting to build a game that I could play with my friends.</p>' +
+              '<p>It was originally built as a traditional tic-tac-toe game, but this was fairly simple to accomplish, and I wast left wanting to build a game that I could play with my friends.</p>' +
               '<p>I came up with Link ThreeSix after a few different iterations of board sizes and game logic. I have a blast playing this game, and I am still working on the optimal playing strategy.</p>' +
               '<p>My next goal for this game is to implement a computer AI opponent with varying difficulty levels.</p>' +
-              '<p>If you enjoy Link Thirty Six, feel free to fork or star on GitHub!</p>' +
+              '<p>If you enjoy Link ThreeSix, feel free to fork or star on GitHub!</p>' +
             '</div>' +
           '</div>' +
         '</div>' +
