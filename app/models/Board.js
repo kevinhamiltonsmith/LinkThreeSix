@@ -9,14 +9,14 @@ var Board = Backbone.Model.extend({
       p1SqScore.push(0);
       p2SqScore.push(0);
     }
-    this.set({board: initialBoard, turn: "player", p1SqScore: p1SqScore, p2SqScore: p2SqScore});
+    this.set({board: initialBoard, turn: "Player 1", turnMark: "X", p1SqScore: p1SqScore, p2SqScore: p2SqScore});
   },
 
   setSquare: function(mark, position){
     if (mark === 0) {
       var color = "playerBlue";
       var score = 1;
-      if (this.get("turn") === "player") {
+      if (this.get("turn") === "Player 1") {
         mark = "X";
         this.setNewBoard(mark, position, color);
         this.computerMove(position);
@@ -38,14 +38,14 @@ var Board = Backbone.Model.extend({
   },
 
   computerMove: function(position) {
-    this.set({turn: "computer"});
+    this.set({turn: "Player 2", turnMark: "O"});
     var p1SqScoreNew = this.get('p1SqScore').slice(0);
     p1SqScoreNew[position] = 1;
     this.set('p1SqScore', p1SqScoreNew);
   },
 
   playerMove: function(position) {
-    this.set({turn: "player"});
+    this.set({turn: "Player 1", turnMark: "X"});
     var p2SqScoreNew = this.get('p2SqScore').slice(0);
     p2SqScoreNew[position] = 10;
     this.set('p2SqScore', p2SqScoreNew);

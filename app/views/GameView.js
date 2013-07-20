@@ -14,6 +14,7 @@ var GameView = Backbone.View.extend({
     this.gameScoreView = new GameScoreView({model: game});
     this.gameScoreboardView = new GameScoreboardView({model: game});
     this.endGameView = new EndGameView({model: game});
+    this.turnView = new TurnView({model: this.model.get('board')});
 
     this.model.on('change:newGame', function(){
       this.$el.children().detach();
@@ -113,6 +114,7 @@ var GameView = Backbone.View.extend({
       this.gameScoreView.$el,
       this.endGameView.$el,
       clear,
+      this.turnView.$el,
       this.boardView.$el
     ]);
   }
