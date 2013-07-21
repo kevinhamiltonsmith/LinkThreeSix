@@ -1,9 +1,9 @@
 Link ThreeSix
 ==================
 
-<a href="http://kevinhamiltonsmith.com/linkthreesix">Link ThreeSix Live Demo</a>
+<a href="http://kevinhamiltonsmith.com/linkthreesix">Play Link ThreeSix</a>
 
-This is a two player game. Alternating turns, each player places their mark on a single board square, until the board is filled
+This is a two player game. Alternating turns, each player places their mark on a single board square, until the board is filled.
 
 Player 1: Blue X's, Player 2: Red O's
 
